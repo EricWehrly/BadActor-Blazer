@@ -12,6 +12,8 @@ namespace BadActor
         public void Configure(IComponentsApplicationBuilder app)
         {
             app.AddComponent<App>("app");
+
+            GameObjects.CreateInstances.Create();
         }
     }
 }

@@ -1,0 +1,20 @@
+﻿<style>
+    #MachinesContainer {
+        border: 1px solid;
+        border-color: var(--ba-border-color-light);
+    }
+    .machine {
+    }
+</style>
+
+<div id="MachinesContainer">
+
+    <span>Machines</span>
+
+    @foreach (GameObjects.Machine machine in GameObjects.Machine.list)
+    {
+        <div class="machine">
+            @machine.name
+        </div>
+    }
+</div>
