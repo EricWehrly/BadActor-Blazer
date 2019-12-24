@@ -1,20 +1,30 @@
 ﻿<style>
     #MachinesContainer {
+        position: absolute;
+        bottom: 1em;
+        left: 1em;
+    }
+
+    #MachinesContainer h4 {
+        color: #444;
+    }
+
+    .machine {
         border: 1px solid;
         border-color: var(--ba-border-color-light);
-    }
-    .machine {
+        display: inline-block;
+        padding: 2em;
     }
 </style>
 
 <div id="MachinesContainer">
 
-    <span>Machines</span>
+    <h4>machines</h4>
 
     @foreach (GameObjects.Machine machine in GameObjects.Machine.list)
     {
         <div class="machine">
-            @machine.name
+            <span class="mdi mdi-desktop-classic"> @machine.name</span>
         </div>
     }
 </div>

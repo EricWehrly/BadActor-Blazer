@@ -1,0 +1,31 @@
+﻿<style>
+    / *
+        hide dots in li
+    */
+</style>
+
+<div id="ApplicationsContainer">
+    <button class="btn btn-outline-primary mdi mdi-application" @onclick="ToggleMenu">
+        Apps
+    </button>
+
+    <div class="@MenuCssClass">
+        @foreach (GameObjects.Application application in GameObjects.Application.list)
+        {
+        <span>
+            @application.name
+        </span>
+        }
+    </div>
+</div>
+
+@code {
+    private bool collapseMenu = true;
+
+    private string MenuCssClass => collapseMenu ? "collapse" : null;
+
+    private void ToggleMenu()
+    {
+        collapseMenu = !collapseMenu;
+    }
+}

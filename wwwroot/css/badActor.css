@@ -7,5 +7,10 @@ body {
     background-color: #222;
     color: var(--ba-font-color);
     border-color: var(--ba-border-color-light);
-    font-family: 'Terminal';
+    font: 1em Inconsolata monospace;
+    font-family: 'Lucida Console';
+}
+
+.main {
+    position: relative;
 }
