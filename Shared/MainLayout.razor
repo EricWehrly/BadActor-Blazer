@@ -6,7 +6,7 @@
 -->
 
 <div class="main">
-    <div class="content px-4">
+    <div class="content">
         @Body
     </div>
 </div>
@@ -24,7 +24,7 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        modalService.Show<ModalComponent>("test");
+        // modalService.Show<ModalComponent>("test");
 
         base.OnAfterRender(firstRender);
     }

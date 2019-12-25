@@ -24,7 +24,7 @@ namespace BadActor.GameObjects
         }
 
         public string Name { get; private set; }
-        public int Value { get; private set; }
+        public double Value { get; private set; }
         public string Icon { get; private set; }
 
         public Resource(string name, string icon, int initialValue = 0)
@@ -36,9 +36,9 @@ namespace BadActor.GameObjects
             List.Add(this);
         }
 
-        public int Add(int amount)
+        public double Add(int amount)
         {
-            this.Value += amount;
+            Value += amount;
 
             appState.NeedsRedraw = true;
 

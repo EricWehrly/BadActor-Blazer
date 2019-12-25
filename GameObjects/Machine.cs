@@ -9,10 +9,7 @@ namespace BadActor.GameObjects
         public readonly string Name;
         public ComputingPower MachineComputingPower { get; private set; } = ComputingPower.LOW;
         public AccessLevel MachineAccessLevel { get; private set; } = AccessLevel.GUEST;
-
-        // should we differentiate between running and installed?
-        private List<Application> applications = new List<Application>();
-        public List<Application> Applications { get { return applications; } }
+        public List<Application> Applications { get; } = new List<Application>();
 
         public Machine(string name)
         {
@@ -26,9 +23,9 @@ namespace BadActor.GameObjects
 
         public void RunApplication(Application application)
         {
-            if (!applications.Contains(application))
+            if (!Applications.Contains(application))
             {
-                applications.Add(application);
+                Applications.Add(application);
             }
         }
 
