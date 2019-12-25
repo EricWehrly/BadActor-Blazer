@@ -1,0 +1,32 @@
+﻿@inject AppState appState;
+
+<style>
+    #ResourcesContainer {
+        position: fixed;
+        top: .5em;
+        right: .5em;
+    }
+</style>
+
+
+<div id="ResourcesContainer">
+    @foreach (Resource resource in Resource.List)
+    {
+        <span class="@resource.Icon"> @resource.Value</span>
+    }
+</div>
+
+@code {
+    public void RedrawNeeded()
+    {
+        StateHasChanged();
+
+        appState.NeedsRedraw = false;
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        appState.RedrawNeeded += RedrawNeeded;
+    }
+}

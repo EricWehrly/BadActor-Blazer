@@ -30,7 +30,7 @@
 
     <h4>machines</h4>
 
-    @foreach (GameObjects.Machine machine in GameObjects.Machine.list)
+    @foreach (Machine machine in Machine.List)
     {
         <div class="machine @machinesClass"
              @ondrop="@(e => HandleDrop(machine))" ondragover="event.preventDefault();">

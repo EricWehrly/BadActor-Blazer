@@ -31,7 +31,7 @@
     </h4>
 
     <div class="@MenuCssClass">
-        @foreach (GameObjects.Application application in GameObjects.Application.list)
+        @foreach (Application application in Application.List)
         {
             <div class="application" draggable="true"
                  @ondragstart="@(e => ApplicationDragStart(application))" @ondragend="@ApplicationDragEnd">

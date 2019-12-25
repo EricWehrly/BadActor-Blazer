@@ -4,7 +4,7 @@ namespace BadActor.GameObjects
 {
     public class Machine
     {
-        public static List<Machine> list { get; } = new List<Machine>();
+        public static List<Machine> List { get; } = new List<Machine>();
 
         public readonly string name;
 
@@ -16,7 +16,7 @@ namespace BadActor.GameObjects
         {
             this.name = name;
 
-            list.Add(this);
+            List.Add(this);
         }
 
         public void RunApplication(Application application)

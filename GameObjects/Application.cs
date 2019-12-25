@@ -7,7 +7,7 @@ namespace BadActor.GameObjects
 {
     public class Application
     {
-        public static List<Application> list { get; } = new List<Application>();
+        public static List<Application> List { get; } = new List<Application>();
 
         // tried to do a static constructor and it was NOT having it so ...
         private static bool registeredLoopMethod = false;
@@ -15,11 +15,13 @@ namespace BadActor.GameObjects
         static Application()
         {
             // gameLoop.RegisterLoopMethod(applicationGameLoop);
+
+            GameLoop.RegisterLoopMethod(applicationGameLoop);
         }
 
         private static void applicationGameLoop()
         {
-            foreach(var application in list)
+            foreach(var application in List)
             {
                 application.think(application);
             }
@@ -41,11 +43,11 @@ namespace BadActor.GameObjects
 
             this.think = think;
 
-            list.Add(this);
+            List.Add(this);
 
             if(registeredLoopMethod == false)
             {
-                GameLoop.RegisterLoopMethod(applicationGameLoop);
+                // GameLoop.RegisterLoopMethod(applicationGameLoop);
                 registeredLoopMethod = true;
             }
         }
