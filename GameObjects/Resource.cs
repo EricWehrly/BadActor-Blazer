@@ -36,7 +36,7 @@ namespace BadActor.GameObjects
             List.Add(this);
         }
 
-        public double Add(int amount)
+        public double Add(double amount)
         {
             Value += amount;
 

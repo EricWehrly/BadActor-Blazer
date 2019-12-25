@@ -6,7 +6,7 @@ namespace BadActor.GameObjects
     [AutoRegister]
     public class CreateInstances
     {
-        private readonly float COINS_PER_PROCESSING_POWER = 0.25f;
+        private readonly float COINS_PER_PROCESSING_POWER = 0.025f;
 
         public CreateInstances()
         {
@@ -18,9 +18,10 @@ namespace BadActor.GameObjects
 
             var coins = new Resource("Coins", "mdi mdi-coin");
 
-            new Application("Coin Miner", null, (application) =>
+            new Application("Coin Miner", null, (application, elapsedSeconds) =>
             {
-                coins.Add((int)(application.ProcessingPower * COINS_PER_PROCESSING_POWER));
+                double coinsToAdd = application.ProcessingPower * COINS_PER_PROCESSING_POWER * elapsedSeconds;
+                coins.Add(coinsToAdd);
                 // Console.WriteLine(application.name + " thinking on " + application.Machines.Count + " machines.");
             });
 

@@ -12,7 +12,9 @@ namespace BadActor.Shared
         // Keep this, so we can implement pausing later.
         private Timer timer;
 
-        private List<Action> loopMethods = new List<Action>();
+        private DateTime lastUpdate = DateTime.Now;
+
+        private List<Action<double>> loopMethods = new List<Action<double>>();
 
         public GameLoop()
         {
@@ -24,7 +26,7 @@ namespace BadActor.Shared
             }, null, 1000, 250);
         }
 
-        public static void RegisterLoopMethod(Action method)
+        public static void RegisterLoopMethod(Action<double> method)
         {
             if (instance == null) new GameLoop();
 
@@ -44,10 +46,14 @@ namespace BadActor.Shared
 
         private void loop()
         {
-            foreach(var action in loopMethods)
+            // should we be using stopwatch instead?
+            DateTime endTime = DateTime.Now;
+            double elapsedSeconds = (endTime - lastUpdate).TotalSeconds;
+            foreach (var action in loopMethods)
             {
-                action.Invoke();
+                action.Invoke(elapsedSeconds);
             }
+            lastUpdate = endTime;
         }
     }
 }

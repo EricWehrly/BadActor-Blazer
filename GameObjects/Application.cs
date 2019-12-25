@@ -17,24 +17,22 @@ namespace BadActor.GameObjects
             processingPower = new Multiplier("Available Processing Power", 0.1f);
         }
 
-        private static void applicationGameLoop()
+        private static void applicationGameLoop(double elapsedSeconds)
         {
             foreach(var application in List)
             {
-                application.think(application);
+                application.think(application, elapsedSeconds);
             }
         }
 
-        public List<Machine> Machines { get { return machines; } }
+        public List<Machine> Machines { get; } = new List<Machine>();
         public int ProcessingPower { get; private set; } = 0;
-
-        private List<Machine> machines = new List<Machine>();
 
         public readonly string Name;
         private string Icon;
-        private Action<Application> think;
+        private Action<Application, double> think;
 
-        public Application(string name, string icon = null, Action<Application> thinkMethod = null)
+        public Application(string name, string icon = null, Action<Application, double> thinkMethod = null)
         {
             Name = name;
 
@@ -47,9 +45,9 @@ namespace BadActor.GameObjects
 
         public void RunOnMachine(Machine machine)
         {
-            if (!machines.Contains(machine))
+            if (!Machines.Contains(machine))
             {
-                machines.Add(machine);
+                Machines.Add(machine);
                 recomputeProcessingPower();
             }
         }
@@ -62,7 +60,7 @@ namespace BadActor.GameObjects
         private void recomputeProcessingPower()
         {
             int processingPower = 0;
-            foreach(Machine machine in machines)
+            foreach(Machine machine in Machines)
             {
                 Console.WriteLine(machine.AvailableComputingPower + " from " + machine.Name);
                 processingPower += machine.AvailableComputingPower;
