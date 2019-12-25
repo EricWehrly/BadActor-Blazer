@@ -13,7 +13,7 @@ async function fetchAsync() {
     }
     catch (e) {
         failed = true;
-        await wait(200);
+        await wait(1000);
         console.debug("failed" + e)
     }
 }
@@ -21,7 +21,7 @@ async function fetchAsync() {
 async function Pooling() {
     while (true) {
         fetchAsync();
-        await wait(200);
+        await wait(1000);
     }
 }
 
