@@ -36,9 +36,9 @@
              @ondrop="@(e => HandleDrop(machine))" ondragover="event.preventDefault();">
             @foreach(Application application in machine.Applications)
             {
-                <span class="mdi mdi-application"> @application.name</span>
+                <span class="mdi mdi-application"> @application.Name</span>
             }
-            <span class="mdi mdi-desktop-classic"> @machine.name</span>
+            <span class="mdi mdi-desktop-classic"> @machine.Name</span>
         </div>
     }
 </div>

@@ -1,5 +1,4 @@
 ﻿using BadActor.Shared;
-using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 
@@ -7,16 +6,15 @@ namespace BadActor.GameObjects
 {
     public class Application
     {
+        private static readonly Multiplier processingPower;
+
         public static List<Application> List { get; } = new List<Application>();
 
-        // tried to do a static constructor and it was NOT having it so ...
-        private static bool registeredLoopMethod = false;
-
+        // maybe all of this, and the new application stuff should just be its own file
         static Application()
         {
-            // gameLoop.RegisterLoopMethod(applicationGameLoop);
-
             GameLoop.RegisterLoopMethod(applicationGameLoop);
+            processingPower = new Multiplier("Available Processing Power", 0.1f);
         }
 
         private static void applicationGameLoop()
@@ -28,28 +26,23 @@ namespace BadActor.GameObjects
         }
 
         public List<Machine> Machines { get { return machines; } }
+        public int ProcessingPower { get; private set; } = 0;
 
         private List<Machine> machines = new List<Machine>();
 
-        public readonly string name;
-        private string icon;
+        public readonly string Name;
+        private string Icon;
         private Action<Application> think;
 
-        public Application(string name, string icon = null, Action<Application> think = null)
+        public Application(string name, string icon = null, Action<Application> thinkMethod = null)
         {
-            this.name = name;
+            Name = name;
 
-            this.icon = icon;
+            Icon = icon;
 
-            this.think = think;
+            think = thinkMethod;
 
             List.Add(this);
-
-            if(registeredLoopMethod == false)
-            {
-                // GameLoop.RegisterLoopMethod(applicationGameLoop);
-                registeredLoopMethod = true;
-            }
         }
 
         public void RunOnMachine(Machine machine)
@@ -57,12 +50,26 @@ namespace BadActor.GameObjects
             if (!machines.Contains(machine))
             {
                 machines.Add(machine);
+                recomputeProcessingPower();
             }
         }
 
         public override string ToString()
         {
-            return name;
+            return Name;
+        }
+
+        private void recomputeProcessingPower()
+        {
+            int processingPower = 0;
+            foreach(Machine machine in machines)
+            {
+                Console.WriteLine(machine.AvailableComputingPower + " from " + machine.Name);
+                processingPower += machine.AvailableComputingPower;
+            }
+
+            ProcessingPower = processingPower;
+            Console.WriteLine(Name + " processing power now " + ProcessingPower);
         }
     }
 }

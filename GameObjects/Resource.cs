@@ -40,6 +40,8 @@ namespace BadActor.GameObjects
         {
             this.Value += amount;
 
+            appState.NeedsRedraw = true;
+
             return this.Value;
         }
 
