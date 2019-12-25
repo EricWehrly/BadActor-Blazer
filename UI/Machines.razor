@@ -7,23 +7,27 @@
         left: .5em;
     }
 
-    #MachinesContainer h4 {
-        text-decoration: dotted;
-        text-decoration-line: underline;
-    }
+        #MachinesContainer h4 {
+            text-decoration: dotted;
+            text-decoration-line: underline;
+        }
 
-    .machine {
-        border: 1px solid;
-        border-color: var(--ba-border-color-light);
-        display: inline-block;
-        padding: 1.5em;
+        #MachinesContainer .machine {
+            border: 1px solid;
+            border-color: var(--ba-border-color-light);
+            display: inline-block;
+            padding: 1.5em;
+            transition: all ease-in-out .5s;
+            margin-bottom: .25em;
+        }
 
-        transition: all ease-in-out .5s;
-    }
+            #MachinesContainer .machine.DropTarget {
+                box-shadow: 0 0 10px #9ecaed;
+            }
 
-    .machine.DropTarget {
-        box-shadow: 0 0 10px #9ecaed;
-    }
+            #MachinesContainer .machine hr {
+                border-top: 1px solid var(--ba-border-color-light);
+            }
 </style>
 
 <div id="MachinesContainer">
@@ -34,9 +38,13 @@
     {
         <div class="machine @machinesClass"
              @ondrop="@(e => HandleDrop(machine))" ondragover="event.preventDefault();">
-            @foreach(Application application in machine.Applications)
+            @foreach (Application application in machine.Applications)
             {
-                <span class="mdi mdi-application"> @application.Name</span>
+                <div class="mdi mdi-application"> @application.Name</div>
+            }
+            @if (machine.Applications.Count > 0)
+            {
+                <hr />
             }
             <span class="mdi mdi-desktop-classic"> @machine.Name</span>
         </div>
