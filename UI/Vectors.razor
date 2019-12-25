@@ -1,0 +1,18 @@
+﻿<style>
+    #VectorsContainer {
+        left: .5em;
+        position: absolute;
+        top: .5em;
+    }
+    </style>
+
+<div id="VectorsContainer" class="purple">
+    <h4 class="purple mdi mdi-ray-start-arrow">
+        Infiltration Vectors
+    </h4>
+
+    @foreach (InfiltrationVector vector in InfiltrationVector.List)
+    {
+        @vector.DisplayName
+    }
+</div>

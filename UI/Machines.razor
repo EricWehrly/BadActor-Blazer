@@ -19,15 +19,22 @@
             padding: 1.5em;
             transition: all ease-in-out .5s;
             margin-bottom: .25em;
+
+            user-select: none;
         }
 
             #MachinesContainer .machine.DropTarget {
-                box-shadow: 0 0 10px #9ecaed;
+                box-shadow: 0 0 8px #9ecaed;
             }
 
             #MachinesContainer .machine hr {
                 border-top: 1px solid var(--ba-border-color-light);
             }
+
+        #MachinesContainer .machine .application {
+            font-size: .75em;
+            opacity: .75;
+        }
 </style>
 
 <div id="MachinesContainer">
@@ -40,7 +47,7 @@
              @ondrop="@(e => HandleDrop(machine))" ondragover="event.preventDefault();">
             @foreach (Application application in machine.Applications)
             {
-                <div class="mdi mdi-application"> @application.Name</div>
+                <div class="application green mdi mdi-application"> @application.Name</div>
             }
             @if (machine.Applications.Count > 0)
             {

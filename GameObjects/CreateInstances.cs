@@ -18,6 +18,8 @@ namespace BadActor.GameObjects
 
             var coins = new Resource("Coins", "mdi mdi-coin");
 
+            // should apps have a 'type'
+            // and coin miner would show the coin currency icon to denote it's a money making type?
             new Application("Coin Miner", null, (application, elapsedSeconds) =>
             {
                 double coinsToAdd = application.ProcessingPower * COINS_PER_PROCESSING_POWER * elapsedSeconds;
@@ -26,6 +28,8 @@ namespace BadActor.GameObjects
             });
 
             // new Application("Nigerian Prince");
+
+            new InfiltrationVector("Audio");
         }
     }
 }

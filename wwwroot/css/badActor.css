@@ -14,19 +14,29 @@ body {
     font-family: 'Lucida Console';
 }
 
+h1, h2, h3, h4, h5, h6 {
+    color: #777;
+    text-shadow: 0 0 2px #555;
+}
+
 .main {
     position: absolute;
     top: 0;
-    bottom: 0;
     left: 0;
     right: 0;
+    height: 100vh;
 }
 
 .content {
     z-index: 2;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: #777;
-    text-shadow: 0 0 2px #555;
+.green {
+    color: rgb(25, 245, 25);
+    text-shadow: 0 0 2px rgba(200, 245, 200, .8);
+}
+
+.purple {
+    color: rgb(150, 20, 180);
+    text-shadow: 0 0 2px rgba(200, 27, 240, .8);
 }
