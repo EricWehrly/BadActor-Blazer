@@ -1,4 +1,5 @@
 ﻿using BadActor.Attributes;
+using System;
 
 namespace BadActor.GameObjects
 {
@@ -13,11 +14,12 @@ namespace BadActor.GameObjects
 
             new Machine("ui test 2");
 
-            new Application("Coin Miner");
+            new Application("Coin Miner", null, (application) =>
+            {
+                Console.WriteLine(application.name + " thinking on " + application.Machines.Count + " machines.");
+            });
 
-            new Application("Nigerian Prince");
-
-            new Application("a third thing");
+            // new Application("Nigerian Prince");
         }
     }
 }

@@ -10,6 +10,7 @@ namespace BadActor.GameObjects
 
         // should we differentiate between running and installed?
         private List<Application> applications = new List<Application>();
+        public List<Application> Applications { get { return applications; } }
 
         public Machine(string name)
         {
@@ -20,7 +21,13 @@ namespace BadActor.GameObjects
 
         public void RunApplication(Application application)
         {
-            this.applications.Add(application);
+            if(!applications.Contains(application)) {
+                applications.Add(application);
+            }
+        }
+        public override string ToString()
+        {
+            return name;
         }
     }
 }

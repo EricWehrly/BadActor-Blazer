@@ -3,39 +3,52 @@
 <style>
     #ApplicationsContainer {
         left: .5em;
+        position: absolute;
+        top: 50%;
     }
+
+        #ApplicationsContainer h4 {
+            cursor: pointer;
+        }
 
         #ApplicationsContainer .application {
             padding: .5em;
             cursor: grab;
         }
 
-            #ApplicationsContainer .application:active {
-                cursor: grabbing;
-            }
+    #ApplicationsContainer .application:active {
+        cursor: grabbing;
+    }
 
-        #ApplicationsContainer > .btn {
-            margin-bottom: 1em;
-        }
+    #ApplicationsContainer > .btn {
+        margin-bottom: 1em;
+    }
 </style>
 
 <div id="ApplicationsContainer">
-    <button class="btn btn-outline-primary mdi mdi-application" @onclick="ToggleMenu">
-        Apps
-    </button>
+    <h4 class="@appsMenuIcon" @onclick="ToggleMenu">
+        @appsMenuName
+    </h4>
 
     <div class="@MenuCssClass">
         @foreach (GameObjects.Application application in GameObjects.Application.list)
         {
             <div class="application" draggable="true"
                  @ondragstart="@(e => ApplicationDragStart(application))" @ondragend="@ApplicationDragEnd">
-                @application.name
+                <span class="@applicationClass"> @application.name</span>
             </div>
         }
     </div>
 </div>
 
 @code {
+
+    private string appsMenuName => collapseMenu ? "Apps" : "Applications";
+
+    private string appsMenuIcon => collapseMenu ? "mdi mdi-application" : null;
+
+    // We may later want to suppress the icon while we're dragging
+    private string applicationClass = "mdi mdi-application";
 
     private bool collapseMenu = true;
 

@@ -7,21 +7,23 @@
         left: .5em;
     }
 
-        #MachinesContainer h4 {
-            text-decoration: dotted;
-            text-decoration-line: underline;
-        }
+    #MachinesContainer h4 {
+        text-decoration: dotted;
+        text-decoration-line: underline;
+    }
 
     .machine {
         border: 1px solid;
         border-color: var(--ba-border-color-light);
         display: inline-block;
         padding: 1.5em;
+
+        transition: all ease-in-out .5s;
     }
 
-        .machine.DropTarget {
-            border: 1px solid red;
-        }
+    .machine.DropTarget {
+        box-shadow: 0 0 10px #9ecaed;
+    }
 </style>
 
 <div id="MachinesContainer">
@@ -31,7 +33,11 @@
     @foreach (GameObjects.Machine machine in GameObjects.Machine.list)
     {
         <div class="machine @machinesClass"
-             @ondrop="HandleDrop" ondragover="event.preventDefault();">
+             @ondrop="@(e => HandleDrop(machine))" ondragover="event.preventDefault();">
+            @foreach(Application application in machine.Applications)
+            {
+                <span class="mdi mdi-application"> @application.name</span>
+            }
             <span class="mdi mdi-desktop-classic"> @machine.name</span>
         </div>
     }
@@ -39,13 +45,13 @@
 
 @code {
 
-    private bool highlightMachineClass = false;
-
     private string machinesClass => appState.ApplicationBeingDragged != null ? "DropTarget" : null;
 
-    private async Task HandleDrop()
+    private async Task HandleDrop(Machine machine)
     {
-        Console.WriteLine(appState.ApplicationBeingDragged);
+        appState.ApplicationBeingDragged.RunOnMachine(machine);
+        // this eventually shouldn't be bidirectional ...
+        machine.RunApplication(appState.ApplicationBeingDragged);
     }
 
     protected override async Task OnInitializedAsync()

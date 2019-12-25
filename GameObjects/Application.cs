@@ -1,27 +1,63 @@
-﻿using System;
+﻿using BadActor.Shared;
+using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 
 namespace BadActor.GameObjects
 {
     public class Application
-    {        public static List<Application> list { get; } = new List<Application>();
+    {
+        public static List<Application> list { get; } = new List<Application>();
+
+        // tried to do a static constructor and it was NOT having it so ...
+        private static bool registeredLoopMethod = false;
+
+        static Application()
+        {
+            // gameLoop.RegisterLoopMethod(applicationGameLoop);
+        }
+
+        private static void applicationGameLoop()
+        {
+            foreach(var application in list)
+            {
+                application.think(application);
+            }
+        }
+
+        public List<Machine> Machines { get { return machines; } }
+
+        private List<Machine> machines = new List<Machine>();
 
         public readonly string name;
         private string icon;
+        private Action<Application> think;
 
-        public Application(string name, string icon = null)
+        public Application(string name, string icon = null, Action<Application> think = null)
         {
             this.name = name;
 
             this.icon = icon;
 
+            this.think = think;
+
             list.Add(this);
+
+            if(registeredLoopMethod == false)
+            {
+                GameLoop.RegisterLoopMethod(applicationGameLoop);
+                registeredLoopMethod = true;
+            }
         }
 
-        void think()
+        public void RunOnMachine(Machine machine)
         {
-            Console.WriteLine(name + " thinking ...");
+            if (!machines.Contains(machine))
+            {
+                machines.Add(machine);
+            }
         }
+
         public override string ToString()
         {
             return name;
