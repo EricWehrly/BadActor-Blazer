@@ -1,7 +1,22 @@
-﻿<style>
-    / *
-        hide dots in li
-    */
+﻿@inject AppState appState;
+
+<style>
+    #ApplicationsContainer {
+        left: .5em;
+    }
+
+        #ApplicationsContainer .application {
+            padding: .5em;
+            cursor: grab;
+        }
+
+            #ApplicationsContainer .application:active {
+                cursor: grabbing;
+            }
+
+        #ApplicationsContainer > .btn {
+            margin-bottom: 1em;
+        }
 </style>
 
 <div id="ApplicationsContainer">
@@ -12,14 +27,16 @@
     <div class="@MenuCssClass">
         @foreach (GameObjects.Application application in GameObjects.Application.list)
         {
-        <span>
-            @application.name
-        </span>
+            <div class="application" draggable="true"
+                 @ondragstart="@(e => ApplicationDragStart(application))" @ondragend="@ApplicationDragEnd">
+                @application.name
+            </div>
         }
     </div>
 </div>
 
 @code {
+
     private bool collapseMenu = true;
 
     private string MenuCssClass => collapseMenu ? "collapse" : null;
@@ -27,5 +44,15 @@
     private void ToggleMenu()
     {
         collapseMenu = !collapseMenu;
+    }
+
+    private void ApplicationDragStart(Application application)
+    {
+        appState.ApplicationBeingDragged = application;
+    }
+
+    private void ApplicationDragEnd()
+    {
+        appState.ApplicationBeingDragged = null;
     }
 }

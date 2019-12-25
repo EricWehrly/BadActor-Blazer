@@ -16,8 +16,6 @@ namespace BadActor.GameObjects
             this.name = name;
 
             list.Add(this);
-
-            System.Console.WriteLine(this.name);
         }
 
         public void RunApplication(Application application)

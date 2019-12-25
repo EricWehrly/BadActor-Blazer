@@ -1,14 +1,16 @@
-﻿<style>
+﻿@inject AppState appState;
+
+<style>
     #MachinesContainer {
         position: fixed;
         bottom: .5em;
         left: .5em;
     }
 
-    #MachinesContainer h4 {
-        text-decoration: dotted;
-        text-decoration-line: underline;
-    }
+        #MachinesContainer h4 {
+            text-decoration: dotted;
+            text-decoration-line: underline;
+        }
 
     .machine {
         border: 1px solid;
@@ -16,6 +18,10 @@
         display: inline-block;
         padding: 1.5em;
     }
+
+        .machine.DropTarget {
+            border: 1px solid red;
+        }
 </style>
 
 <div id="MachinesContainer">
@@ -24,8 +30,26 @@
 
     @foreach (GameObjects.Machine machine in GameObjects.Machine.list)
     {
-        <div class="machine">
+        <div class="machine @machinesClass"
+             @ondrop="HandleDrop" ondragover="event.preventDefault();">
             <span class="mdi mdi-desktop-classic"> @machine.name</span>
         </div>
     }
 </div>
+
+@code {
+
+    private bool highlightMachineClass = false;
+
+    private string machinesClass => appState.ApplicationBeingDragged != null ? "DropTarget" : null;
+
+    private async Task HandleDrop()
+    {
+        Console.WriteLine(appState.ApplicationBeingDragged);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        appState.OnApplicationDraggedChanged += StateHasChanged;
+    }
+}

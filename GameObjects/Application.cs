@@ -20,7 +20,11 @@ namespace BadActor.GameObjects
 
         void think()
         {
-            Console.WriteLine(this.name + " thinking ...");
+            Console.WriteLine(name + " thinking ...");
+        }
+        public override string ToString()
+        {
+            return name;
         }
     }
 }

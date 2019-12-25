@@ -5,6 +5,7 @@ using System.Linq;
 using BadActor.Attributes;
 using System;
 using Blazored.Modal;
+using BadActor.Shared;
 
 namespace BadActor
 {
@@ -13,6 +14,7 @@ namespace BadActor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddBlazoredModal();
+            services.AddSingleton(typeof(AppState));
 
             foreach (var definedType in Assembly.GetExecutingAssembly().DefinedTypes)
             {
