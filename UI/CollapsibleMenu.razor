@@ -1,0 +1,69 @@
+﻿<style>
+    .collapsible h4 {
+        cursor: pointer;
+    }
+
+    .collapsible div div:nth-child(even) {
+        background-color: var(--ba-border-color-light);
+    }
+</style>
+
+<div id="@containerId" class="@MenuClasses collapsible">
+    <h4 class="@HandleClasses @menuHandleDisplayIcon" @onclick="ToggleMenu">
+        @menuHandleDisplayName
+    </h4>
+
+    <div class="@MenuCssClass">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string MenuName { get; set; } = "change me";
+
+    [Parameter]
+    public string MenuNameShort { get; set; }
+
+    [Parameter]
+    public string MenuIcon { get; set; } = null;
+
+    // This could be covered with attributes, eventually
+    [Parameter]
+    public string MenuClasses { get; set; }
+
+    [Parameter]
+    public string HandleClasses { get; set; }
+
+    [Parameter]
+    public bool Collapsed { get; set; } = true;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    protected string MenuCssClass => Collapsed ? "collapse" : null;
+
+    protected void ToggleMenu()
+    {
+        Collapsed = !Collapsed;
+    }
+
+    private string menuHandleDisplayName
+    {
+        get
+        {
+            return Collapsed ? MenuNameShort : MenuName;
+        }
+    }
+
+    private string menuHandleDisplayIcon
+    {
+        get
+        {
+            return Collapsed ? MenuIcon : null;
+        }
+    }
+
+    private string containerId { get { return MenuName.Replace(" ", "") + "Container"; } }
+}

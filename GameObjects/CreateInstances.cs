@@ -30,6 +30,7 @@ namespace BadActor.GameObjects
             // new Application("Nigerian Prince");
 
             new InfiltrationVector("Audio");
+            new InfiltrationVector("Webserver", InfiltrationVector.InfiltrationType.Vulnerability);
         }
     }
 }

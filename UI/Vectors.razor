@@ -1,18 +1,15 @@
 ﻿<style>
-    #VectorsContainer {
+    #InfiltrationVectorsContainer {
         left: .5em;
         position: absolute;
         top: .5em;
     }
-    </style>
+</style>
 
-<div id="VectorsContainer" class="purple">
-    <h4 class="purple mdi mdi-ray-start-arrow">
-        Infiltration Vectors
-    </h4>
-
+<CollapsibleMenu MenuName="Infiltration Vectors" MenuNameShort="Vectors" MenuIcon="mdi mdi-ray-start-arrow"
+                 MenuClasses="purple" HandleClasses="purple">
     @foreach (InfiltrationVector vector in InfiltrationVector.List)
     {
-        @vector.DisplayName
+        <div class="vector">@vector.DisplayName</div>
     }
-</div>
+</CollapsibleMenu>

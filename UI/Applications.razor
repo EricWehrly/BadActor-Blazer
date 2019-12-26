@@ -8,10 +8,6 @@
         /* Translate up by 50%? */
     }
 
-        #ApplicationsContainer h4 {
-            cursor: pointer;
-        }
-
         #ApplicationsContainer .application {
             padding: .5em;
             cursor: grab;
@@ -26,39 +22,22 @@
     }
 </style>
 
-<div id="ApplicationsContainer" class="green">
-    <h4 class="green @appsMenuIcon" @onclick="ToggleMenu">
-        @appsMenuName
-    </h4>
-
-    <div class="@MenuCssClass">
-        @foreach (Application application in Application.List)
-        {
-            <div class="application" draggable="true"
-                 @ondragstart="@(e => ApplicationDragStart(application))" @ondragend="@ApplicationDragEnd">
-                <span class="@applicationClass"> @application.Name</span>
-            </div>
-        }
-    </div>
-</div>
+<!-- Is it possible to retrieve the value of Collapsed from the component, and write the compute here? -->
+<CollapsibleMenu MenuName="Applications" MenuNameShort="Apps" MenuIcon="mdi mdi-application"
+                 MenuClasses="green" HandleClasses="green">
+    @foreach (Application application in Application.List)
+    {
+        <div class="application" draggable="true"
+             @ondragstart="@(e => ApplicationDragStart(application))" @ondragend="@ApplicationDragEnd">
+            <span class="@applicationClass"> @application.Name</span>
+        </div>
+    }
+</CollapsibleMenu>
 
 @code {
 
-    private string appsMenuName => collapseMenu ? "Apps" : "Applications";
-
-    private string appsMenuIcon => collapseMenu ? "mdi mdi-application" : null;
-
     // We may later want to suppress the icon while we're dragging
     private string applicationClass = "mdi mdi-application";
-
-    private bool collapseMenu = true;
-
-    private string MenuCssClass => collapseMenu ? "collapse" : null;
-
-    private void ToggleMenu()
-    {
-        collapseMenu = !collapseMenu;
-    }
 
     private void ApplicationDragStart(Application application)
     {

@@ -11,10 +11,16 @@ namespace BadActor.GameObjects
     {
         public static List<InfiltrationVector> List { get; } = new List<InfiltrationVector>();
         public string Name { get; private set; }
-        public string DisplayName { get { return Name + " " + VectorType;  } }
+        public string DisplayName
+        {
+            get
+            {
+                return Name + " " + VectorType;
+            }
+        }
         public InfiltrationType VectorType;
 
-        public InfiltrationVector(string name, InfiltrationType vectorType = InfiltrationType.MALWARE)
+        public InfiltrationVector(string name, InfiltrationType vectorType = InfiltrationType.Malware)
         {
             Name = name;
 
@@ -25,9 +31,9 @@ namespace BadActor.GameObjects
 
         public enum InfiltrationType
         {
-            MALWARE,
-            WORM,
-            EXPLOIT
+            Malware,
+            Worm,
+            Vulnerability
         }
     }
 }
