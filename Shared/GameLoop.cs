@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-
+using System.Diagnostics;
 
 namespace BadActor.Shared
 {
@@ -11,14 +11,14 @@ namespace BadActor.Shared
 
         // Keep this, so we can implement pausing later.
         private Timer timer;
-
-        private DateTime lastUpdate = DateTime.Now;
+        Stopwatch stopwatch = new Stopwatch();
 
         private List<Action<double>> loopMethods = new List<Action<double>>();
 
         public GameLoop()
         {
             manageInstance();
+            stopwatch.Start();
 
             timer = new Timer((e) =>
             {
@@ -46,14 +46,12 @@ namespace BadActor.Shared
 
         private void loop()
         {
-            // should we be using stopwatch instead?
-            DateTime endTime = DateTime.Now;
-            double elapsedSeconds = (endTime - lastUpdate).TotalSeconds;
+            stopwatch.Stop();
             foreach (var action in loopMethods)
             {
-                action.Invoke(elapsedSeconds);
+                action.Invoke(stopwatch.Elapsed.TotalSeconds);
             }
-            lastUpdate = endTime;
+            stopwatch.Restart();
         }
     }
 }

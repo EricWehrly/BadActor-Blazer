@@ -1,33 +1,30 @@
 ﻿@inject AppState appState;
 
-<style>
-        #ApplicationsContainer .application {
-            padding: .5em;
-            cursor: grab;
-        }
-
-    #ApplicationsContainer .application:active {
-        cursor: grabbing;
-    }
-
-    #ApplicationsContainer > .btn {
-        margin-bottom: 1em;
-    }
-</style>
-
 <!-- Is it possible to retrieve the value of Collapsed from the component, and write the compute here? -->
 <CollapsibleMenu MenuName="Applications" MenuNameShort="Apps" MenuIcon="mdi mdi-application"
                  MenuClasses="green" HandleClasses="green">
     @foreach (Application application in Application.List)
     {
-        <div class="application" draggable="true"
-             @ondragstart="@(e => ApplicationDragStart(application))" @ondragend="@ApplicationDragEnd">
-            <span class="@applicationClass"> @application.Name</span>
-        </div>
+        @if (application.Unlocked)
+        {
+            <div class="application" draggable="true"
+                 @ondragstart="@(e => ApplicationDragStart(application))" @ondragend="@ApplicationDragEnd">
+                <span class="@applicationClass"> @application.Name</span>
+            </div>
+        }
+        else
+        {
+            <div class="application">
+                <span class="@applicationClass"> @application.Name</span>
+                <span class="btn btn-success" @onclick="@(e => buyApplication(application))">Buy <span class="@coins.Icon"> @application.Cost</span></span>
+            </div>
+        }
     }
 </CollapsibleMenu>
 
 @code {
+
+    private Resource coins = Resource.Get("Coins");
 
     // We may later want to suppress the icon while we're dragging
     private string applicationClass = "mdi mdi-application";
@@ -40,5 +37,10 @@
     private void ApplicationDragEnd()
     {
         appState.ApplicationBeingDragged = null;
+    }
+
+    private void buyApplication(Application application)
+    {
+        application.Unlock();
     }
 }

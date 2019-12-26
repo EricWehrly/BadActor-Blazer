@@ -19,24 +19,31 @@ namespace BadActor.GameObjects
 
         private static void applicationGameLoop(double elapsedSeconds)
         {
-            foreach(var application in List)
+            foreach (var application in List)
             {
-                application.think(application, elapsedSeconds);
+                application.think?.Invoke(application, elapsedSeconds);
             }
         }
 
+        public string Name { get; private set; }
+        public string Icon { get; private set; }
+        public double Cost { get; private set; }
+        public bool Unlocked { get; private set; }
         public List<Machine> Machines { get; } = new List<Machine>();
         public int ProcessingPower { get; private set; } = 0;
 
-        public readonly string Name;
-        private string Icon;
         private Action<Application, double> think;
 
-        public Application(string name, string icon = null, Action<Application, double> thinkMethod = null)
+        public Application(string name, string icon = null, double cost = 0,
+            Action<Application, double> thinkMethod = null, bool unlocked = false)
         {
             Name = name;
 
             Icon = icon;
+
+            Cost = cost;
+
+            Unlocked = unlocked;
 
             think = thinkMethod;
 
@@ -52,6 +59,15 @@ namespace BadActor.GameObjects
             }
         }
 
+        public bool Unlock()
+        {
+            Resource coins = Resource.Get("Coins");
+
+            Unlocked = Resource.Pay(coins, Cost);
+
+            return Unlocked;
+        }
+
         public override string ToString()
         {
             return Name;
@@ -60,7 +76,7 @@ namespace BadActor.GameObjects
         private void recomputeProcessingPower()
         {
             int processingPower = 0;
-            foreach(Machine machine in Machines)
+            foreach (Machine machine in Machines)
             {
                 Console.WriteLine(machine.AvailableComputingPower + " from " + machine.Name);
                 processingPower += machine.AvailableComputingPower;

@@ -40,3 +40,16 @@ h1, h2, h3, h4, h5, h6 {
     color: rgb(150, 20, 180);
     text-shadow: 0 0 2px rgba(200, 27, 240, .8);
 }
+
+.blue {
+    color: rgb(25, 25, 245);
+    text-shadow: 0 0 2px rgba(160, 160, 245, .8);
+}
+
+*[draggable=true] {
+    cursor: grab;
+}
+
+*[draggable=true]:active {
+    cursor: grabbing;
+}

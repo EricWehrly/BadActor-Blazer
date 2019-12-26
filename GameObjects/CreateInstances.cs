@@ -20,14 +20,14 @@ namespace BadActor.GameObjects
 
             // should apps have a 'type'
             // and coin miner would show the coin currency icon to denote it's a money making type?
-            new Application("Coin Miner", null, (application, elapsedSeconds) =>
+            new Application("Coin Miner", null, 0, (application, elapsedSeconds) =>
             {
                 double coinsToAdd = application.ProcessingPower * COINS_PER_PROCESSING_POWER * elapsedSeconds;
                 coins.Add(coinsToAdd);
                 // Console.WriteLine(application.name + " thinking on " + application.Machines.Count + " machines.");
             });
 
-            // new Application("Nigerian Prince");
+            new Application("Nigerian Prince", null, 3000);
 
             new InfiltrationVector("Webserver", 10, InfiltrationVector.InfiltrationType.Vulnerability);
             new InfiltrationVector("Audio", 100);
