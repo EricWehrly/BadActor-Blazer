@@ -13,7 +13,6 @@ namespace BadActor.GameObjects
             new Machine("localhost");
 
             new Machine("ui test");
-
             new Machine("ui test 2");
 
             var coins = new Resource("Coins", "mdi mdi-coin");
@@ -29,8 +28,17 @@ namespace BadActor.GameObjects
 
             new Application("Nigerian Prince", null, 3000);
 
-            new InfiltrationVector("Webserver", 10, InfiltrationVector.InfiltrationType.Vulnerability);
-            new InfiltrationVector("Audio", 100);
+            // new InfiltrationVector("Webserver", 10, InfiltrationVector.InfiltrationType.Vulnerability);
+            // new InfiltrationVector("Audio", 100);
+
+            new ViralVector("Music");
+            new ViralVector("Movies");
+            new ViralVector("Games");
+            new ViralVector("Anti-Virus Software");
+
+            // icons?
+            // new ViralDistributor("XXX Website", 100);
+            new ViralDistributor("Pirate Website", 80);
         }
     }
 }

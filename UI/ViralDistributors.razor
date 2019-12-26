@@ -1,0 +1,51 @@
+﻿<style>
+    .viralDistributor {
+        display: inline-block;
+        margin-right: .25em;
+        text-align: center;
+        padding: .25em;
+        border: 1px dashed;
+        border-color: var(--ba-border-color-light);
+        user-select: none;
+    }
+
+        .viralDistributor > span {
+            margin-top: .75em;
+        }
+</style>
+
+<div id="ViralDistributorsContainer" class="purple">
+
+    @foreach (ViralDistributor distributor in ViralDistributor.List)
+    {
+    <div class="viralDistributor"
+         @ondrop="@(e => HandleDrop(distributor))" ondragover="event.preventDefault();">
+        @distributor.Name
+        <br />
+        <span>@getCountLabel(distributor)</span>
+        <br />
+        <span class="btn" @onclick="@distributor.Buy">Buy <span class="@coins.Icon"> @distributor.Cost</span></span>
+    </div>
+    }
+</div>
+
+@code {
+
+    private Resource coins = Resource.Get("Coins");
+
+    // private string machinesClass => appState.ApplicationBeingDragged != null ? "DropTarget" : null;
+
+    private async Task HandleDrop(ViralDistributor distributor)
+    {
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // appState.OnApplicationDraggedChanged += StateHasChanged;
+    }
+
+    private string getCountLabel(ViralDistributor distributor)
+    {
+        return distributor.Count + "x";
+    }
+}

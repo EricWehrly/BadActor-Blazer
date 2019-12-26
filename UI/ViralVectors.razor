@@ -1,0 +1,19 @@
+﻿<CollapsibleMenu MenuName="Infiltration Vectors" MenuNameShort="Vectors" MenuIcon="mdi mdi-ray-start-arrow"
+                 MenuClasses="purple" HandleClasses="purple">
+    @foreach (ViralVector vector in ViralVector.List)
+    {
+        @if (vector.Unlocked)
+        {
+            <div class="vector">
+                @vector.DisplayName
+            </div>
+        }
+        else
+        {
+            <div class="vector">
+                @vector.DisplayName
+                <span class="btn" @onclick="vector.StartUnlock">Write <span class="mdi mdi-clock"> @vector.UnlockTime</span></span>
+            </div>
+        }
+    }
+</CollapsibleMenu>

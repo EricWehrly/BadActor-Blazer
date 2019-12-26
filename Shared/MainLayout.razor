@@ -8,8 +8,15 @@
         transform: translate(0, -50%);
     }
 
-    #MainLeft > div {
-        margin-bottom: 2em;
+        #MainLeft > div {
+            margin-bottom: 2em;
+        }
+
+    #MainBottom {
+        position: fixed;
+        bottom: .5em;
+        left: 50%;
+        transform: translate(-50%, 0);
     }
 
     #MainBottomLeft {
@@ -23,6 +30,13 @@
         top: .5em;
         right: 1em;
     }
+
+    #MainTop {
+        position: fixed;
+        top: .5em;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
 </style>
 <!--
 <div class="sidebar">
@@ -30,30 +44,37 @@
 </div>
 -->
 
-    <div class="main">
+<div class="main">
 
-        <div id="MainLeft">
-            <BadActor.UI.Vectors />
-
-            <BadActor.UI.Applications />
-
-            <!--
-            <BadActor.UI.Research />
+    <div id="MainLeft">
+        <BadActor.UI.ViralVectors />
+        <!--
+        <BadActor.UI.Vectors />
             -->
-        </div>
 
-        <div id="MainTopRight">
-            <BadActor.UI.Resources />
-        </div>
+        <BadActor.UI.Applications />
 
-        <div id="MainBottomLeft">
-            <BadActor.UI.Machines />
-        </div>
-        
-        <div class="content">
-            @Body
-        </div>
+        <!--
+        <BadActor.UI.Research />
+        -->
     </div>
+
+    <div id="MainTop">
+        <BadActor.UI.ViralDistributors />
+    </div>
+
+    <div id="MainTopRight">
+        <BadActor.UI.Resources />
+    </div>
+
+    <div id="MainBottom">
+        <BadActor.UI.Machines />
+    </div>
+
+    <div class="content">
+        @Body
+    </div>
+</div>
 
 <!-- https://github.com/Blazored/Modal -->
 <BlazoredModal />

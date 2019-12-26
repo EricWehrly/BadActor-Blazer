@@ -19,6 +19,10 @@ h1, h2, h3, h4, h5, h6 {
     text-shadow: 0 0 2px #555;
 }
 
+.btn {
+    cursor: pointer;
+}
+
 .main {
     position: absolute;
     top: 0;
@@ -36,15 +40,33 @@ h1, h2, h3, h4, h5, h6 {
     text-shadow: 0 0 2px rgba(200, 245, 200, .8);
 }
 
+    .green.btn, .green .btn {
+        color: white;
+        background-color: rgb(25, 245, 25);
+        border-color: rgb(25, 245, 25);
+    }
+
 .purple {
     color: rgb(150, 20, 180);
     text-shadow: 0 0 2px rgba(200, 27, 240, .8);
 }
 
+    .purple.btn, .purple .btn {
+        color: white;
+        background-color: rgb(150, 20, 180);
+        border-color: rgb(150, 20, 180);
+    }
+
 .blue {
     color: rgb(25, 25, 245);
     text-shadow: 0 0 2px rgba(160, 160, 245, .8);
 }
+
+    .blue.btn, .blue .btn {
+        color: white;
+        background-color: rgb(25, 25, 245);
+        border-color: rgb(25, 25, 245);
+    }
 
 *[draggable=true] {
     cursor: grab;

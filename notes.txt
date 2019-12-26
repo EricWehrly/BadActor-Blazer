@@ -1,0 +1,1 @@
+﻿not using https://blazorstrap.io/modals but could
