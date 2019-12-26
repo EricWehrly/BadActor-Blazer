@@ -2,6 +2,22 @@
                  MenuClasses="purple" HandleClasses="purple">
     @foreach (InfiltrationVector vector in InfiltrationVector.List)
     {
-        <div class="vector">@vector.DisplayName</div>
+    <div class="vector">
+        @vector.DisplayName
+        <!--
+        @vector.DisplayName @getCountLabel(vector)
+        <span class="btn btn-info">Buy <span class="@coins.Icon"> @vector.Cost</span></span>
+    -->
+    </div>
     }
 </CollapsibleMenu>
+
+@code
+{
+    private Resource coins = Resource.Get("Coins");
+
+    private string getCountLabel(InfiltrationVector vector)
+    {
+        return vector.Count + "x";
+    }
+}

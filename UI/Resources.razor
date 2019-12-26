@@ -3,7 +3,7 @@
 <div id="ResourcesContainer">
     @foreach (Resource resource in Resource.List)
     {
-        <span class="@resource.Icon"> @Math.Round(resource.Value, 2)</span>
+        <span class="@resource.Icon" title="@resource.Name"> @Math.Round(resource.Value, 2)</span>
     }
 </div>
 

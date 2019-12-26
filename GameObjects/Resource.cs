@@ -23,6 +23,16 @@ namespace BadActor.GameObjects
             return null;
         }
 
+        public static bool Pay(Resource resource, double amount)
+        {
+            if (amount > resource.Value) return false;
+            else
+            {
+                resource.Add(amount * -1);
+                return true;
+            }
+        }
+
         public string Name { get; private set; }
         public double Value { get; private set; }
         public string Icon { get; private set; }
@@ -42,7 +52,7 @@ namespace BadActor.GameObjects
 
             appState.NeedsRedraw = true;
 
-            return this.Value;
+            return Value;
         }
 
         // can we overload to take an int ... ?

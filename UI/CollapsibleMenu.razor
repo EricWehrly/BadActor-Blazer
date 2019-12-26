@@ -3,7 +3,11 @@
         cursor: pointer;
     }
 
-    .collapsible div div:nth-child(even) {
+    .collapsible > div > div {
+        padding: .25em;
+    }
+
+    .collapsible > div > div:nth-child(even) {
         background-color: var(--ba-border-color-light);
     }
 </style>

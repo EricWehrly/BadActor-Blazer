@@ -10,7 +10,10 @@ namespace BadActor.GameObjects
     public class InfiltrationVector
     {
         public static List<InfiltrationVector> List { get; } = new List<InfiltrationVector>();
+
         public string Name { get; private set; }
+        public int Count { get; private set; } = 0;
+        public double Cost { get; private set; } = 1;
         public string DisplayName
         {
             get
@@ -20,13 +23,27 @@ namespace BadActor.GameObjects
         }
         public InfiltrationType VectorType;
 
-        public InfiltrationVector(string name, InfiltrationType vectorType = InfiltrationType.Malware)
+        private double initialCost;
+
+        public InfiltrationVector(string name, double cost = 1,
+            InfiltrationType vectorType = InfiltrationType.Malware)
         {
             Name = name;
+
+            Cost = initialCost = cost;
 
             VectorType = vectorType;
 
             List.Add(this);
+        }
+
+        public void Buy()
+        {
+            var coin = Resource.Get("Coins");
+            if(Resource.Pay(coin, Cost)) {
+                Count++;
+                recalculateCost();
+            }
         }
 
         public enum InfiltrationType
@@ -34,6 +51,12 @@ namespace BadActor.GameObjects
             Malware,
             Worm,
             Vulnerability
+        }
+
+        // TODO: cost multiplier
+        private void recalculateCost()
+        {
+            Cost = initialCost * Count * 2.5;
         }
     }
 }
