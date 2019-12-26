@@ -1,4 +1,29 @@
 ﻿@inherits LayoutComponentBase
+
+<style>
+    #MainLeft {
+        left: .5em;
+        position: fixed;
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+
+    #MainLeft > div {
+        margin-bottom: 2em;
+    }
+
+    #MainBottomLeft {
+        position: fixed;
+        bottom: .5em;
+        left: .5em;
+    }
+
+    #MainTopRight {
+        position: fixed;
+        top: .5em;
+        right: 1em;
+    }
+</style>
 <!--
 <div class="sidebar">
     <NavMenu />
@@ -7,14 +32,20 @@
 
     <div class="main">
 
-        <BadActor.UI.Applications />
+        <div id="MainLeft">
+            <BadActor.UI.Vectors />
 
-        <BadActor.UI.Machines />
+            <BadActor.UI.Applications />
+        </div>
 
-        <BadActor.UI.Resources />
+        <div id="MainTopRight">
+            <BadActor.UI.Resources />
+        </div>
 
-        <BadActor.UI.Vectors />
-
+        <div id="MainBottomLeft">
+            <BadActor.UI.Machines />
+        </div>
+        
         <div class="content">
             @Body
         </div>
