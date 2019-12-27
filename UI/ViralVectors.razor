@@ -22,7 +22,10 @@
         {
             <div class="@vectorClass(vector)">
                 @vector.DisplayName
-                <span class="btn" @onclick="@(e => unlockVector(vector))">Write <span class="mdi mdi-clock"> @vector.UnlockTime</span></span>
+                @if (!vector.Unlocking)
+                {
+                    <span class="btn" @onclick="@(e => unlockVector(vector))">Write <span class="mdi mdi-clock"> @vector.UnlockTime</span></span>
+                }
             </div>
         }
     }
