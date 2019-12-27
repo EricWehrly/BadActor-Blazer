@@ -1,0 +1,21 @@
+﻿version: 2
+jobs:
+  build:
+    docker:
+      - image: microsoft/dotnet:2.1.500-sdk
+    steps:
+      - checkout
+      - run:
+        name: Build
+        command: dotnet publish --configuration Release --output build
+      - run: 
+        name: Publish
+        command: |
+            cd build/BadActor/dist
+            git config --global user.name "Eric Wehrly"
+            git config --global user.email "eric@disruptiontheory.com"
+            git init
+            git checkout -b gh-pages
+            git add -A
+            git commit -m "circleCI push that needs build number"
+            git push -f https://github.com/EricWehrly/BadActor-Blazer.git gh-pages
