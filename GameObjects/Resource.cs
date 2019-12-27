@@ -1,27 +1,10 @@
 ﻿using BadActor.Shared;
-using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BadActor.GameObjects
 {
-    public class Resource
+    public class Resource : GameObject<Resource>
     {
-        public static List<Resource> List { get; } = new List<Resource>();
-
         private static AppState appState { get { return AppState.Instance; } }
-
-        public static Resource Get(string name)
-        {
-            foreach(Resource resource in List)
-            {
-                if (resource.Name == name) return resource;
-            }
-
-            return null;
-        }
 
         public static bool Pay(Resource resource, double amount)
         {
@@ -33,7 +16,6 @@ namespace BadActor.GameObjects
             }
         }
 
-        public string Name { get; private set; }
         public double Value { get; private set; }
         public string Icon { get; private set; }
 

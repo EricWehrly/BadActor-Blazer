@@ -6,7 +6,7 @@ namespace BadActor.GameObjects
     {
         public static List<T> List { get; } = new List<T>();
 
-        public T Get(string name)
+        public static T Get(string name)
         {
             foreach (var gameObject in List)
             {
