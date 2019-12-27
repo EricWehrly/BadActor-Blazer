@@ -12,6 +12,7 @@ jobs:
             name: Publish
             command: |
                 cd build/BadActor/dist
+                sed -i 's:<base href="/" />:<base href="/BadActor-Blazer/" />:g' index.html
                 git config --global user.name "Eric Wehrly"
                 git config --global user.email "eric@disruptiontheory.com"
                 git init
