@@ -1,0 +1,20 @@
+﻿@if (Icons.Length == 1)
+{
+    <span class="mdi @Icons[0]"></span>
+}
+else if (Icons.Length > 1)
+{
+    <!-- This actually looks terrible -->
+    <span class="mdi-stack">
+        @foreach (string icon in Icons)
+        {
+            <i class="mdi @icon mdi-stack"></i>
+        }
+    </span>
+}
+
+@code {
+
+    [Parameter]
+    public string[] Icons { get; set; }
+}
