@@ -23,6 +23,18 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn {
     cursor: pointer;
+    padding: .2rem .35rem
+}
+
+.mdi-stack {
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.mdi.locked {
+    opacity: 0.5;
 }
 
 .main {

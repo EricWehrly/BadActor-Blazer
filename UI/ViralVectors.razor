@@ -2,6 +2,8 @@
 
 <style>
     #InfiltrationVectorsContainer .vector.unlocking {
+        color: white;
+        text-shadow: 0px 0px 1px black;
         background: linear-gradient(90deg, 
             rgba(150, 20, 180, 1) @gradientLeft%, 
             rgba(150, 20, 180, 0) 100%);
@@ -12,22 +14,13 @@
                  MenuClasses="purple" HandleClasses="purple">
     @foreach (ViralVector vector in ViralVector.List)
     {
-        @if (vector.Unlocked)
-        {
-            <div class="vector">
-                @vector.DisplayName
-            </div>
-        }
-        else
-        {
-            <div class="@vectorClass(vector)">
-                @vector.DisplayName
-                @if (!vector.Unlocking)
-                {
-                    <span class="btn" @onclick="@(e => unlockVector(vector))">Write <span class="mdi mdi-clock"> @vector.UnlockTime</span></span>
-                }
-            </div>
-        }
+        <div class="@vectorClass(vector)">
+            <span class="@vector.Icon"> @vector.DisplayName</span>
+            @if (!vector.Unlocking)
+            {
+                <span class="btn" @onclick="@(e => unlockVector(vector))">Write <span class="mdi mdi-clock"> @vector.UnlockTime</span></span>
+            }
+        </div>
     }
 </CollapsibleMenu>
 

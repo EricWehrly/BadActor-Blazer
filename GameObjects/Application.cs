@@ -22,6 +22,7 @@ namespace BadActor.GameObjects
                 application.think?.Invoke(application, elapsedSeconds);
             }
         }
+
         public string Icon { get; private set; }
         public double Cost { get; private set; }
         public bool Unlocked { get; private set; }

@@ -20,11 +20,19 @@
     {
     <div class="viralDistributor"
          @ondrop="@(e => HandleDrop(distributor))" ondragover="event.preventDefault();">
-        @distributor.Name
-        <br />
-        <span>@getCountLabel(distributor)</span>
-        <br />
-        <span class="btn" @onclick="@distributor.Buy">Buy <span class="@coins.Icon"> @distributor.Cost</span></span>
+
+        @distributor.Name<br />
+
+        @foreach (ViralVector vector in distributor.DistributedVectors)
+        {
+            <span class=@getDistributedVectorClass(vector)></span>
+        }
+
+        @if (distributor.Count == 0)
+        {
+            <br />
+            <span class="btn" @onclick="@distributor.Buy">Host <span class="@coins.Icon"> @distributor.Cost</span></span>
+        }
     </div>
     }
 </div>
@@ -47,5 +55,11 @@
     private string getCountLabel(ViralDistributor distributor)
     {
         return distributor.Count + "x";
+    }
+
+    private string getDistributedVectorClass(ViralVector vector)
+    {
+        return vector.Icon +
+            (vector.Unlocked ? "" : " locked");
     }
 }

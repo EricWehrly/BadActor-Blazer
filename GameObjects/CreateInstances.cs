@@ -8,6 +8,7 @@ namespace BadActor.GameObjects
     {
         private readonly float COINS_PER_PROCESSING_POWER = 0.025f;
 
+        // Who knows, maybe we can take the example and load all this from json
         public CreateInstances()
         {
             new Machine("localhost");
@@ -31,14 +32,15 @@ namespace BadActor.GameObjects
             // new InfiltrationVector("Webserver", 10, InfiltrationVector.InfiltrationType.Vulnerability);
             // new InfiltrationVector("Audio", 100);
 
-            new ViralVector("Music");
-            new ViralVector("Movies");
-            new ViralVector("Games");
-            new ViralVector("Anti-Virus Software");
+            var musicVector = new ViralVector("Music", 30, "mdi mdi-music");
+            var movieVector = new ViralVector("Movie", 60, "mdi mdi-movie");
+            var gameVector = new ViralVector("Game", 300, "mdi mdi-game");
+            var antiVirusVector = new ViralVector("Anti-Virus", 600, "mdi mdi-software");
 
             // icons?
-            new ViralDistributor("XXX Website", 100, new[] { "mdi-web" });
-            new ViralDistributor("Pirate Website", 80, new[] { "mdi-pirate" });
+            new ViralDistributor("XXX Website", 100, new[] { "mdi-web" }, new[] { movieVector });
+            new ViralDistributor("Pirate Website", 80, new[] { "mdi-pirate" },
+                new[] { musicVector, movieVector, gameVector, antiVirusVector });
         }
     }
 }

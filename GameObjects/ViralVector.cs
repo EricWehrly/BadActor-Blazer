@@ -9,7 +9,18 @@ namespace BadActor.GameObjects
     {
         public static List<ViralVector> List { get; } = new List<ViralVector>();
 
+        public static ViralVector Get(string name)
+        {
+            foreach(ViralVector vector in List)
+            {
+                if (vector.Name == name) return vector;
+            }
+
+            return null;
+        }
+
         public string Name { get; private set; }
+        public string Icon { get; private set; }
         public string DisplayName
         {
             get
@@ -19,18 +30,20 @@ namespace BadActor.GameObjects
         }
         public InfiltrationType VectorType;
 
-        public ViralVector(string name, double unlockTime = 30, bool unlocked = false,
+        public ViralVector(string name, double unlockTime = 30, string icon = null,
             InfiltrationType vectorType = InfiltrationType.Malware)
         {
+            Unlocking = false;
+
             Name = name;
-
-            VectorType = vectorType;
-
-            Unlocked = unlocked;
 
             UnlockTime = unlockTime;
 
-            Unlocking = false;
+            if (unlockTime == 0) Unlocked = true;
+
+            Icon = icon;
+
+            VectorType = vectorType;
 
             List.Add(this);
         }
