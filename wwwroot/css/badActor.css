@@ -89,3 +89,7 @@ h1, h2, h3, h4, h5, h6 {
 *[draggable=true]:active {
     cursor: grabbing;
 }
+
+.opacity-half {
+    opacity: 0.5;
+}

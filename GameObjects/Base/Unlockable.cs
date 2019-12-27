@@ -1,4 +1,5 @@
 ﻿using BadActor.Shared;
+using System;
 using System.Threading.Tasks;
 
 namespace BadActor.GameObjects
@@ -19,14 +20,16 @@ namespace BadActor.GameObjects
 
             Unlocking = true;
 
-            appState.NeedsRedraw = true;
+            appState.SignalRedraw(GetType());
         }
 
         private void unlock()
         {
             Unlocked = true;
 
-            appState.NeedsRedraw = true;
+            Unlocking = false;
+
+            appState.SignalRedraw(GetType());
         }
     }
 }

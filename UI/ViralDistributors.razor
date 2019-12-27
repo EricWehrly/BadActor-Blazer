@@ -1,4 +1,6 @@
-﻿<style>
+﻿@inject AppState appState;
+
+<style>
     .viralDistributor {
         display: inline-block;
         margin-right: .25em;
@@ -18,39 +20,28 @@
 
     @foreach (ViralDistributor distributor in ViralDistributor.List)
     {
-    <div class="viralDistributor"
-         @ondrop="@(e => HandleDrop(distributor))" ondragover="event.preventDefault();">
+        <div class="viralDistributor">
+            @distributor.Name<br />
 
-        @distributor.Name<br />
+            @foreach (ViralVector vector in distributor.DistributedVectors)
+            {
+                <span class=@getDistributedVectorClass(vector)></span>
+            }
 
-        @foreach (ViralVector vector in distributor.DistributedVectors)
-        {
-            <span class=@getDistributedVectorClass(vector)></span>
-        }
-
-        @if (distributor.Count == 0)
-        {
-            <br />
-            <span class="btn" @onclick="@distributor.Buy">Host <span class="@coins.Icon"> @distributor.Cost</span></span>
-        }
-    </div>
+            @if (distributor.Count == 0)
+            {
+                <br />
+                <span class="@purchaseClass(distributor)" @onclick="@distributor.Buy">
+                    Host <span class="@coins.Icon"> @distributor.Cost</span>
+                </span>
+            }
+        </div>
     }
 </div>
 
 @code {
 
     private Resource coins = Resource.Get("Coins");
-
-    // private string machinesClass => appState.ApplicationBeingDragged != null ? "DropTarget" : null;
-
-    private async Task HandleDrop(ViralDistributor distributor)
-    {
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        // appState.OnApplicationDraggedChanged += StateHasChanged;
-    }
 
     private string getCountLabel(ViralDistributor distributor)
     {
@@ -61,5 +52,27 @@
     {
         return vector.Icon +
             (vector.Unlocked ? "" : " locked");
+    }
+
+    private string purchaseClass(ViralDistributor distributor)
+    {
+        return "mdi btn" +
+            (coins.Value < distributor.Cost ? " locked" : "");
+    }
+
+    public void RedrawNeeded(Type filter)
+    {
+        if (filter != null && !(filter.Equals(typeof(ViralDistributor))
+            || filter.Equals(typeof(ViralVector))))
+        {
+            return;
+        }
+
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        appState.RedrawNeeded += RedrawNeeded;
     }
 }

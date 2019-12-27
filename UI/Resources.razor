@@ -8,14 +8,16 @@
 </div>
 
 @code {
-    public void RedrawNeeded()
+    public void RedrawNeeded(Type filter)
     {
+        if (filter != null && !filter.Equals(typeof(Resource)))
+        {
+            return;
+        }
+        
         StateHasChanged();
-
-        appState.NeedsRedraw = false;
     }
-
-
+    
     protected override async Task OnInitializedAsync()
     {
         appState.RedrawNeeded += RedrawNeeded;

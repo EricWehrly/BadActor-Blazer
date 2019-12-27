@@ -30,9 +30,11 @@ namespace BadActor.GameObjects
 
         public double Add(double amount)
         {
+            if (amount == 0) return Value;
+
             Value += amount;
 
-            appState.NeedsRedraw = true;
+            appState.SignalRedraw(typeof(Resource));
 
             return Value;
         }
@@ -43,7 +45,7 @@ namespace BadActor.GameObjects
         {
             resource.Value++;
 
-            appState.NeedsRedraw = true;
+            appState.SignalRedraw(typeof(Resource));
 
             return resource;
         }

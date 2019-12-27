@@ -16,15 +16,9 @@ namespace BadActor.Shared
             }
         }
 
-        private bool needsRedraw = false;
-        public bool NeedsRedraw
+        public void SignalRedraw(Type filter)
         {
-            get { return needsRedraw; }
-            set
-            {
-                needsRedraw = value;
-                if(needsRedraw) RedrawNeeded?.Invoke();
-            }
+            RedrawNeeded?.Invoke(filter);
         }
 
         private Application _applicationBeingDragged;
@@ -41,7 +35,7 @@ namespace BadActor.Shared
             }
         }
 
-        public event Action RedrawNeeded;
+        public event Action<Type> RedrawNeeded;
         public event Action OnApplicationDraggedChanged;
     }
 }
