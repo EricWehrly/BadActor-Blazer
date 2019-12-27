@@ -1,4 +1,14 @@
-﻿<CollapsibleMenu MenuName="Infiltration Vectors" MenuNameShort="Vectors" MenuIcon="mdi mdi-ray-start-arrow"
+﻿@using System.Timers;
+
+<style>
+    #InfiltrationVectorsContainer .vector.unlocking {
+        background: linear-gradient(90deg, 
+            rgba(150, 20, 180, 1) @gradientLeft%, 
+            rgba(150, 20, 180, 0) 100%);
+    }
+</style>
+
+<CollapsibleMenu MenuName="Infiltration Vectors" MenuNameShort="Vectors" MenuIcon="mdi mdi-ray-start-arrow"
                  MenuClasses="purple" HandleClasses="purple">
     @foreach (ViralVector vector in ViralVector.List)
     {
@@ -10,10 +20,53 @@
         }
         else
         {
-            <div class="vector">
+            <div class="@vectorClass(vector)">
                 @vector.DisplayName
-                <span class="btn" @onclick="vector.StartUnlock">Write <span class="mdi mdi-clock"> @vector.UnlockTime</span></span>
+                <span class="btn" @onclick="@(e => unlockVector(vector))">Write <span class="mdi mdi-clock"> @vector.UnlockTime</span></span>
             </div>
         }
     }
 </CollapsibleMenu>
+
+@code {
+
+    private double unlockingTime = -1;
+
+    private int gradientLeft = 100;
+
+    private DateTime unlockingStart;
+
+    Timer unlockTimer;
+
+    private string vectorClass(ViralVector vector)
+    {
+        return vector.Unlocking ? "vector unlocking" : "vector";
+    }
+
+    private void unlockVector(ViralVector vector)
+    {
+        unlockingStart = DateTime.Now;
+
+        vector.StartUnlock();
+
+        unlockingTime = vector.UnlockTime;
+
+        unlockTimer = new Timer(100);
+
+        unlockTimer.Elapsed += new ElapsedEventHandler(updateUnlockCSS);
+
+        unlockTimer.Enabled = true;
+    }
+
+    private void updateUnlockCSS(object source, ElapsedEventArgs e)
+    {
+        double elapsed = (DateTime.Now - unlockingStart).Seconds;
+        var progress = elapsed / unlockingTime;
+        Console.WriteLine("Elapsed: " + elapsed + ". Progress: " + progress);
+        gradientLeft = (int) (100 * (progress));
+
+        if (progress >= 1) unlockTimer.Stop();
+
+        StateHasChanged();
+    }
+}

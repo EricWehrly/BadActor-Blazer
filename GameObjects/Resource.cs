@@ -61,15 +61,7 @@ namespace BadActor.GameObjects
         {
             resource.Value++;
 
-            // BadActor.UI.Resources.ResourceChanged();
-            if (appState == null)
-            {
-                Console.WriteLine("Mate, appState didn't get injected.");
-            }
-            else
-            {
-                appState.NeedsRedraw = true;
-            }
+            appState.NeedsRedraw = true;
 
             return resource;
         }
