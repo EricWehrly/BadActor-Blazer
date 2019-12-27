@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BadActor.GameObjects
+﻿namespace BadActor.GameObjects
 {
     // Maybe malware is an infiltration vector
     // and 'Audio' is a vector .. channel ?
-    public class InfiltrationVector
+    public class InfiltrationVector : GameObject<InfiltrationVector>
     {
-        public static List<InfiltrationVector> List { get; } = new List<InfiltrationVector>();
-
-        public string Name { get; private set; }
         public int Count { get; private set; } = 0;
         public double Cost { get; private set; } = 1;
         public string DisplayName

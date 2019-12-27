@@ -4,11 +4,9 @@ using System.Collections.Generic;
 
 namespace BadActor.GameObjects
 {
-    public class Application
+    public class Application : GameObject<Application>
     {
         private static readonly Multiplier processingPower;
-
-        public static List<Application> List { get; } = new List<Application>();
 
         // maybe all of this, and the new application stuff should just be its own file
         static Application()
@@ -19,13 +17,11 @@ namespace BadActor.GameObjects
 
         private static void applicationGameLoop(double elapsedSeconds)
         {
-            foreach (var application in List)
+            foreach (Application application in List)
             {
                 application.think?.Invoke(application, elapsedSeconds);
             }
         }
-
-        public string Name { get; private set; }
         public string Icon { get; private set; }
         public double Cost { get; private set; }
         public bool Unlocked { get; private set; }

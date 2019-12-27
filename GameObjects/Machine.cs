@@ -2,11 +2,8 @@
 
 namespace BadActor.GameObjects
 {
-    public class Machine
+    public class Machine : GameObject<Machine>
     {
-        public static List<Machine> List { get; } = new List<Machine>();
-
-        public readonly string Name;
         public ComputingPower MachineComputingPower { get; private set; } = ComputingPower.LOW;
         public AccessLevel MachineAccessLevel { get; private set; } = AccessLevel.GUEST;
         public List<Application> Applications { get; } = new List<Application>();

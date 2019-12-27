@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 
 namespace BadActor.GameObjects
 {
-    public class ViralDistributor
+    public class ViralDistributor : GameObject<ViralDistributor>
     {
-        public static List<ViralDistributor> List { get; } = new List<ViralDistributor>();
-                
-        public string Name { get; private set; }
+        public string[] Icons { get; private set; }
         public int Count { get; private set; } = 0;
         public double Cost { get; private set; } = 1;
 
@@ -17,11 +15,13 @@ namespace BadActor.GameObjects
         private double initialCost;
 
 
-        public ViralDistributor(string name, double cost = 1)
+        public ViralDistributor(string name, double cost = 1, string[] icons = null)
         {
             Name = name;
 
             Cost = initialCost = cost;
+
+            Icons = icons;
 
             List.Add(this);
         }

@@ -37,8 +37,8 @@ namespace BadActor.GameObjects
             new ViralVector("Anti-Virus Software");
 
             // icons?
-            // new ViralDistributor("XXX Website", 100);
-            new ViralDistributor("Pirate Website", 80);
+            new ViralDistributor("XXX Website", 100, new[] { "mdi-web" });
+            new ViralDistributor("Pirate Website", 80, new[] { "mdi-pirate" });
         }
     }
 }
