@@ -25,7 +25,7 @@ namespace BadActor.GameObjects
             Complete = true;
             foreach(ObjectiveCriteria objectiveCriteria in CriteriaForObjective)
             {
-                if(objectiveCriteria.CheckCriteria() == false)
+                if(objectiveCriteria.Met == false)
                 {
                     Complete = false;
                 }
@@ -47,22 +47,19 @@ namespace BadActor.GameObjects
         public class ObjectiveCriteria
         {
             public string Description { get; private set; }
-            public bool Met { get; set; }
 
             private Func<bool> doCriteriaCheck { get; set; }
+            public bool Met { get
+                {
+                    return doCriteriaCheck();
+                }
+            }
 
             public ObjectiveCriteria(string description, Func<bool> checkCriteria)
             {
                 Description = description;
 
                 doCriteriaCheck = checkCriteria;
-            }
-
-            public bool CheckCriteria()
-            {
-                Met = doCriteriaCheck();
-
-                return Met;
             }
         }
     }

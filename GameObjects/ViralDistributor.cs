@@ -6,6 +6,7 @@ namespace BadActor.GameObjects
 {
     public class ViralDistributor : GameObject<ViralDistributor>
     {
+        // TODO: should this be per distributor?
         public static double MachineProgress { get; private set; }
 
         private static readonly double MACHINE_UNLOCK_THRESHOLD = 100;
@@ -20,7 +21,7 @@ namespace BadActor.GameObjects
             // TODO: Optimizing this will result in a significant performance boost
             foreach (ViralDistributor distributor in List)
             {
-                if (distributor.Count > 0)
+                if (distributor.Unlocked)
                 {
                     foreach (ViralVector vector in distributor.DistributedVectors)
                     {
@@ -44,6 +45,7 @@ namespace BadActor.GameObjects
         public string[] Icons { get; private set; }
         public int Count { get; private set; } = 0;
         public double Cost { get; private set; } = 1;
+        public bool Unlocked { get { return Count > 0; } }
 
         public List<ViralVector> DistributedVectors { get; private set; } = new List<ViralVector>();
         
@@ -70,6 +72,8 @@ namespace BadActor.GameObjects
                 Count++;
                 recalculateCost();
             }
+
+            appState.GameStateChanged();
         }
 
         public void AddVector(ViralVector vector)
