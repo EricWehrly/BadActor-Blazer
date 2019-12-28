@@ -8,17 +8,25 @@
 </style>
 
 <div id="ObjectivesContainer">
-    <h4>objectives</h4>
-
     @foreach (Objective objective in Objective.List)
     {
-        <span>@objective.Name</span>
+        <h4>@objective.Name</h4>
         <br />
-        <span>@objective.Description</span>
+        <span class="@getObjectiveClass(objective)"> @getDescription(objective)</span>
     }
 </div>
 
 @code {
+
+    private MarkupString getDescription(Objective objective)
+    {
+        return (MarkupString)objective.Description;
+    }
+
+    private string getObjectiveClass(Objective objective)
+    {
+        return objective.Complete ? "mdi mdi-checkbox-marked-outline" : "mdi mdi-checkbox-blank-outline";
+    }
 
     public void RedrawNeeded(Type filter)
     {

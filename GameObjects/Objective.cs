@@ -8,19 +8,37 @@ namespace BadActor.GameObjects
 
         public bool Complete { get; private set; }
 
-        private Action CheckCriteria { get; set; }
+        // private Action CheckCriteria { get; set; }
 
-        public Objective(string name, string description, Action checkCriteria)
+        private Func<bool>[] checkCriteriaMet { get; set; }
+
+        public Objective(string name, string description, Func<bool>[] criteriaMet)
         {
             Name = name;
 
             Description = description;
 
-            CheckCriteria = checkCriteria;
-
-            appState.OnGameStateChanged += CheckCriteria;
+            checkCriteriaMet = criteriaMet;
 
             // ugh we shouldn't have to do this but stupid appstate isn't ready for event sub?
+            appState.SignalRedraw(GetType());
+
+            appState.OnGameStateChanged += completeIfCriteriaMet;
+        }
+
+        private void completeIfCriteriaMet()
+        {
+            Complete = true;
+            foreach(Func<bool> criteriaCheckFunction in checkCriteriaMet)
+            {
+                if(criteriaCheckFunction() == false)
+                {
+                    Complete = false;
+                }
+            }
+
+            Console.WriteLine("Complete is " + Complete);
+
             appState.SignalRedraw(GetType());
         }
 
@@ -28,7 +46,14 @@ namespace BadActor.GameObjects
         {
             Complete = true;
 
-            appState.OnGameStateChanged -= CheckCriteria;
+            // appState.OnGameStateChanged -= CheckCriteria;
+        }
+
+        public class ObjectiveCriteria
+        {
+            // Func<bool> criteria met
+
+            // string description
         }
     }
 }

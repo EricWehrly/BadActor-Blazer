@@ -35,6 +35,8 @@ namespace BadActor.GameObjects
             {
                 Applications.Add(application);
             }
+
+            appState.GameStateChanged();
         }
 
         public int AvailableComputingPower
