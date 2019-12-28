@@ -39,11 +39,9 @@
 
     private async Task HandleDrop()
     {
+        appState.ApplicationBeingDragged.RunOnMachines(Machines);
         foreach(Machine machine in Machines)
         {
-            // TODO: This won't cover machines that get added later, 
-            // we'll want to track against the group ...
-            appState.ApplicationBeingDragged.RunOnMachine(machine);
             // this eventually shouldn't be bidirectional ...
             machine.RunApplication(appState.ApplicationBeingDragged);
         }

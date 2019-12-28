@@ -55,6 +55,22 @@ namespace BadActor.GameObjects
             }
         }
 
+        public void RunOnMachines(List<Machine> machines)
+        {
+            var machinesToAdd = new List<Machine>();
+
+            foreach(var machine in machines)
+            {
+                if(!Machines.Contains(machine))
+                {
+                    machinesToAdd.Add(machine);
+                }
+            }
+
+            Machines.AddRange(machinesToAdd);
+            recomputeProcessingPower();
+        }
+
         public bool Unlock()
         {
             Resource coins = Resource.Get("Coins");
@@ -80,7 +96,7 @@ namespace BadActor.GameObjects
             int processingPower = 0;
             foreach (Machine machine in Machines)
             {
-                Console.WriteLine(machine.AvailableComputingPower + " from " + machine.Name);
+                // Console.WriteLine(machine.AvailableComputingPower + " from " + machine.Name);
                 processingPower += machine.AvailableComputingPower;
             }
 
