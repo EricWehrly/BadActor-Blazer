@@ -17,14 +17,17 @@ namespace BadActor.GameObjects
 
         private static void viralDistributorGameLoop(double elapsedSeconds)
         {
-            // TODO: optimize
+            // TODO: Optimizing this will result in a significant performance boost
             foreach (ViralDistributor distributor in List)
             {
                 if (distributor.Count > 0)
                 {
                     foreach (ViralVector vector in distributor.DistributedVectors)
                     {
-                        MachineProgress += (1 * elapsedSeconds);
+                        if (vector.Unlocked)
+                        {
+                            MachineProgress += (5 * elapsedSeconds);
+                        }
                     }
                 }
             }
