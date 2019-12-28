@@ -1,24 +1,25 @@
 ﻿<style>
-    .collapsible h4 {
+    #@containerId h4 {
         cursor: pointer;
     }
 
-    .collapsible > div > div {
+    .collapsible > div {
         padding: .25em;
         margin-bottom: .25em;
     }
 
-    .collapsible > div > div:nth-child(even) {
+    .collapsible > div:nth-child(even) {
         background-color: var(--ba-border-color-light);
     }
 </style>
 
-<div id="@containerId" class="@MenuClasses collapsible">
+<!-- onclick="collapsibleMenuItem(this)" -->
+<div id="@containerId" class="@MenuClasses">
     <h4 class="@HandleClasses @menuHandleDisplayIcon" @onclick="ToggleMenu">
         @menuHandleDisplayName
     </h4>
 
-    <div class="@MenuCssClass">
+    <div class="@MenuCssClass collapsible">
         @ChildContent
     </div>
 </div>
