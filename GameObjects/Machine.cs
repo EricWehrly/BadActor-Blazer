@@ -1,10 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BadActor.GameObjects
 {
     public class Machine : GameObject<Machine>
     {
-        public ComputingPower MachineComputingPower { get; private set; } = ComputingPower.LOW;
+        public static List<Machine> MachineGroup(ComputingPower computingPower, bool excludeLocalhost = true)
+        {
+            var machines = List.Where(machine => machine.MachineComputingPower == computingPower);
+            if (excludeLocalhost) machines = machines.Where(machine => machine.Name != "localhost");
+
+            return machines.ToList();
+        }
+
+        public ComputingPower MachineComputingPower { get; private set; } = ComputingPower.Ancient;
         public AccessLevel MachineAccessLevel { get; private set; } = AccessLevel.GUEST;
         public List<Application> Applications { get; } = new List<Application>();
 
@@ -44,11 +54,12 @@ namespace BadActor.GameObjects
 
         public enum ComputingPower
         {
-            LOW = 100,
-            MEDIUM = 500,
-            HIGH = 1000,
-            SERVER = 2500,
-            BEAST = 5000
+            Ancient = 100,
+            Disposable = 500,
+            Grandma = 1000,
+            Standard = 1000,
+            Server = 2500,
+            Gaming = 5000
         }
 
         public enum AccessLevel

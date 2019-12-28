@@ -1,0 +1,61 @@
+﻿@inject AppState appState;
+
+<style>
+    .machineGroup {
+        border: 1px dashed;
+        border-color: var(--ba-border-color-light);
+        display: inline-block;
+        padding: 1.5em;
+        transition: all ease-in-out .5s;
+        margin-bottom: .25em;
+        user-select: none;
+    }
+
+        .machineGroup.DropTarget {
+            box-shadow: 0 0 8px #9ecaed;
+        }
+
+        .machineGroup hr {
+            border-top: 1px solid var(--ba-border-color-light);
+        }
+
+        .machineGroup .application {
+            font-size: .75em;
+            opacity: .75;
+        }
+</style>
+
+<div class="purple machineGroup @machinesClass"
+     @ondrop="@(e => HandleDrop())" ondragover="event.preventDefault();">
+    @foreach (Application application in Machines.FirstOrDefault().Applications)
+    {
+        <div class="application green mdi mdi-application"> @application.Name</div>
+    }
+    @if (Machines.FirstOrDefault().Applications.Count > 0)
+    {
+        <hr />
+    }
+    <span class="mdi mdi-skull-crossbones"> @ComputingPower x @Machines.Count</span>
+</div>
+
+@code {
+    [Parameter]
+    public Machine.ComputingPower ComputingPower { get; set; }
+
+    [Parameter]
+    public List<Machine> Machines { get; set; }
+
+    private string machinesClass => appState.ApplicationBeingDragged != null ? "DropTarget" : null;
+
+    private async Task HandleDrop()
+    {
+        foreach(Machine machine in Machines)
+        {
+            // TODO: This won't cover machines that get added later, 
+            // we'll want to track against the group ...
+            appState.ApplicationBeingDragged.RunOnMachine(machine);
+            // this eventually shouldn't be bidirectional ...
+            machine.RunApplication(appState.ApplicationBeingDragged);
+        }
+    }
+}

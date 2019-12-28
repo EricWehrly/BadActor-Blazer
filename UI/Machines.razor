@@ -1,67 +1,28 @@
 ﻿@inject AppState appState;
 
 <style>
-        #MachinesContainer h4 {
-            text-decoration: dotted;
-            text-decoration-line: underline;
-        }
-
-        #MachinesContainer .machine {
-            border: 1px dashed;
-            border-color: var(--ba-border-color-light);
-            display: inline-block;
-            padding: 1.5em;
-            transition: all ease-in-out .5s;
-            margin-bottom: .25em;
-
-            user-select: none;
-        }
-
-            #MachinesContainer .machine.DropTarget {
-                box-shadow: 0 0 8px #9ecaed;
-            }
-
-            #MachinesContainer .machine hr {
-                border-top: 1px solid var(--ba-border-color-light);
-            }
-
-        #MachinesContainer .machine .application {
-            font-size: .75em;
-            opacity: .75;
-        }
+    #MachinesContainer h4 {
+        text-decoration: dotted;
+        text-decoration-line: underline;
+    }
 </style>
 
 <div id="MachinesContainer">
 
     <h4>machines</h4>
 
-    @foreach (Machine machine in Machine.List)
+    <MachineComponent machine="@Machine.Get("localhost")" />
+
+    @foreach (Machine.ComputingPower computingPower in Enum.GetValues(typeof(Machine.ComputingPower)))
     {
-        <div class="machine @machinesClass"
-             @ondrop="@(e => HandleDrop(machine))" ondragover="event.preventDefault();">
-            @foreach (Application application in machine.Applications)
-            {
-                <div class="application green mdi mdi-application"> @application.Name</div>
-            }
-            @if (machine.Applications.Count > 0)
-            {
-                <hr />
-            }
-            <span class="mdi mdi-desktop-classic"> @machine.Name</span>
-        </div>
+        @if (Machine.MachineGroup(computingPower).Count > 0)
+        {
+            <MachineGroup ComputingPower="computingPower" Machines="Machine.MachineGroup(computingPower)" />
+        }
     }
 </div>
 
 @code {
-
-    private string machinesClass => appState.ApplicationBeingDragged != null ? "DropTarget" : null;
-
-    private async Task HandleDrop(Machine machine)
-    {
-        appState.ApplicationBeingDragged.RunOnMachine(machine);
-        // this eventually shouldn't be bidirectional ...
-        machine.RunApplication(appState.ApplicationBeingDragged);
-    }
 
     public void RedrawNeeded(Type filter)
     {
@@ -69,7 +30,7 @@
         {
             return;
         }
-        
+
         StateHasChanged();
     }
 

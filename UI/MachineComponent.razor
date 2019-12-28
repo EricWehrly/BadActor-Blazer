@@ -1,0 +1,53 @@
+﻿@inject AppState appState;
+
+<style>
+    .machineComponent {
+        border: 1px dashed;
+        border-color: var(--ba-border-color-light);
+        display: inline-block;
+        padding: 1.5em;
+        transition: all ease-in-out .5s;
+        margin-bottom: .25em;
+        user-select: none;
+    }
+
+    .machineComponent.DropTarget {
+        box-shadow: 0 0 8px #9ecaed;
+    }
+
+    .machineComponent hr {
+        border-top: 1px solid var(--ba-border-color-light);
+    }
+
+    .machineComponent .application {
+        font-size: .75em;
+        opacity: .75;
+    }
+</style>
+
+<div class="machineComponent @machinesClass"
+     @ondrop="@(e => HandleDrop(machine))" ondragover="event.preventDefault();">
+    @foreach (Application application in machine.Applications)
+    {
+        <div class="application green mdi mdi-application"> @application.Name</div>
+    }
+    @if (machine.Applications.Count > 0)
+    {
+        <hr />
+    }
+    <span class="mdi mdi-desktop-classic"> @machine.Name</span>
+</div>
+
+@code {
+    [Parameter]
+    public Machine machine { get; set; }
+
+    private string machinesClass => appState.ApplicationBeingDragged != null ? "DropTarget" : null;
+
+    private async Task HandleDrop(Machine machine)
+    {
+        appState.ApplicationBeingDragged.RunOnMachine(machine);
+        // this eventually shouldn't be bidirectional ...
+        machine.RunApplication(appState.ApplicationBeingDragged);
+    }
+}
