@@ -1,21 +1,41 @@
 ﻿using BadActor.Shared;
+using System;
 using System.Collections.Generic;
 
 namespace BadActor.GameObjects
 {
     public class ViralDistributor : GameObject<ViralDistributor>
     {
+        public static double MachineProgress { get; private set; }
+
+        private static readonly double MACHINE_UNLOCK_THRESHOLD = 100;
+
         static ViralDistributor()
         {
-            GameLoop.RegisterLoopMethod(applicationGameLoop);
+            GameLoop.RegisterLoopMethod(viralDistributorGameLoop);
         }
 
-        private static void applicationGameLoop(double elapsedSeconds)
+        private static void viralDistributorGameLoop(double elapsedSeconds)
         {
+            // TODO: optimize
             foreach (ViralDistributor distributor in List)
             {
-                // application.think?.Invoke(application, elapsedSeconds);
+                if (distributor.Count > 0)
+                {
+                    foreach (ViralVector vector in distributor.DistributedVectors)
+                    {
+                        MachineProgress += (1 * elapsedSeconds);
+                    }
+                }
             }
+
+            if(MachineProgress >= MACHINE_UNLOCK_THRESHOLD)
+            {
+                Console.WriteLine("Adding machine.");
+                new Machine("sucker");
+                MachineProgress -= MACHINE_UNLOCK_THRESHOLD;
+            }
+            appState.SignalRedraw(typeof(ViralDistributor));
         }
 
         public string[] Icons { get; private set; }

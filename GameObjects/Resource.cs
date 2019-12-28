@@ -1,11 +1,7 @@
-﻿using BadActor.Shared;
-
-namespace BadActor.GameObjects
+﻿namespace BadActor.GameObjects
 {
     public class Resource : GameObject<Resource>
     {
-        private static AppState appState { get { return AppState.Instance; } }
-
         public static bool Pay(Resource resource, double amount)
         {
             if (amount > resource.Value) return false;

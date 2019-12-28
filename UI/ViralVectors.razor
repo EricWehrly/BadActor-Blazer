@@ -71,7 +71,12 @@
         // Console.WriteLine("Elapsed: " + elapsed + ". Progress: " + progress);
         gradientLeft = 100 * (progress);
 
-        if (progress >= 1) unlockTimer.Stop();
+        if (progress >= 1)
+        {
+            unlockTimer.Stop();
+            unlockTimer.Dispose();
+            unlockTimer = null;
+        }
 
         StateHasChanged();
     }

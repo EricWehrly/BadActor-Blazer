@@ -16,6 +16,9 @@ namespace BadActor.GameObjects
             Name = name;
 
             List.Add(this);
+
+            // TODO: can we somehow animate machine draw in?
+            if(appState != null) appState.SignalRedraw(GetType());
         }
 
         public void RunApplication(Application application)

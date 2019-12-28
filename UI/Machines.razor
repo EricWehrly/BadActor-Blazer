@@ -63,8 +63,19 @@
         machine.RunApplication(appState.ApplicationBeingDragged);
     }
 
-    protected override async Task OnInitializedAsync()
+    public void RedrawNeeded(Type filter)
     {
+        if (filter != null && !filter.Equals(typeof(Machine)))
+        {
+            return;
+        }
+        
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        appState.RedrawNeeded += RedrawNeeded;
         appState.OnApplicationDraggedChanged += StateHasChanged;
     }
 }

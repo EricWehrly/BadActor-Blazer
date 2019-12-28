@@ -13,9 +13,6 @@ namespace BadActor.GameObjects
         {
             new Machine("localhost");
 
-            new Machine("ui test");
-            new Machine("ui test 2");
-
             var coins = new Resource("Coins", "mdi mdi-coin");
 
             // should apps have a 'type'
@@ -33,11 +30,10 @@ namespace BadActor.GameObjects
             // new InfiltrationVector("Audio", 100);
 
             var musicVector = new ViralVector("Music", 30, "mdi mdi-music");
-            var movieVector = new ViralVector("Movie", 60, "mdi mdi-movie");
-            var gameVector = new ViralVector("Game", 300, "mdi mdi-game");
+            var movieVector = new ViralVector("Movie", 60, "mdi mdi-movie-open");
+            var gameVector = new ViralVector("Game", 300, "mdi mdi-gamepad-variant-outline");
             var antiVirusVector = new ViralVector("Anti-Virus", 600, "mdi mdi-software");
 
-            // icons?
             new ViralDistributor("XXX Website", 100, new[] { "mdi-web" }, new[] { movieVector });
             new ViralDistributor("Pirate Website", 80, new[] { "mdi-pirate" },
                 new[] { musicVector, movieVector, gameVector, antiVirusVector });
