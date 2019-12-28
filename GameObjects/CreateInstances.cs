@@ -1,12 +1,13 @@
 ﻿using BadActor.Attributes;
 using System;
+using System.Threading.Tasks;
 
 namespace BadActor.GameObjects
 {
     [AutoRegister]
     public class CreateInstances
     {
-        private readonly float COINS_PER_PROCESSING_POWER = 0.025f;
+        private readonly float COINS_PER_PROCESSING_POWER = 0.25f;
 
         // Who knows, maybe we can take the example and load all this from json
         public CreateInstances()
@@ -26,6 +27,14 @@ namespace BadActor.GameObjects
 
             new Application("Nigerian Prince", null, 3000);
 
+            createViruses();
+
+            // Well this is dangeous. But we need to wait for appState to be ready ...
+            Task.Delay(500).ContinueWith(e => createObjectives());
+        }
+
+        private void createViruses()
+        {
             // new InfiltrationVector("Webserver", 10, InfiltrationVector.InfiltrationType.Vulnerability);
             // new InfiltrationVector("Audio", 100);
 
@@ -37,6 +46,22 @@ namespace BadActor.GameObjects
             new ViralDistributor("XXX Website", 100, new[] { "mdi-web" }, new[] { movieVector });
             new ViralDistributor("Pirate Website", 80, new[] { "mdi-pirate" },
                 new[] { musicVector, movieVector, gameVector, antiVirusVector });
+        }
+
+        private void createObjectives()
+        {
+            new Objective("Test", "This is a test", () =>
+            {
+                Console.WriteLine("Apparently the game state changed.");
+
+                var coinMiner = Application.Get("Coin Miner");
+
+                if (coinMiner.Unlocked)
+                {
+                    Console.WriteLine("Objective complete! Coin miner unlocked!");
+                    // complete();
+                }
+            });
         }
     }
 }

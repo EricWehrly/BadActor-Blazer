@@ -60,7 +60,13 @@ namespace BadActor.GameObjects
         {
             Resource coins = Resource.Get("Coins");
 
-            Unlocked = Resource.Pay(coins, Cost);
+            var canPay = Resource.Pay(coins, Cost);
+
+            if (canPay) {
+                Unlocked = true;
+
+                appState.GameStateChanged();
+            }
 
             return Unlocked;
         }

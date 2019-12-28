@@ -1,0 +1,37 @@
+﻿@inject AppState appState;
+
+<style>
+    #ObjectivesContainer h4 {
+        text-decoration: dotted;
+        text-decoration-line: underline;
+    }
+</style>
+
+<div id="ObjectivesContainer">
+    <h4>objectives</h4>
+
+    @foreach (Objective objective in Objective.List)
+    {
+        <span>@objective.Name</span>
+        <br />
+        <span>@objective.Description</span>
+    }
+</div>
+
+@code {
+
+    public void RedrawNeeded(Type filter)
+    {
+        if (filter != null && !filter.Equals(typeof(Objective)))
+        {
+            return;
+        }
+
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        appState.RedrawNeeded += RedrawNeeded;
+    }
+}

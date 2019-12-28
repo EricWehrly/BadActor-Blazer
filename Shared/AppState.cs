@@ -21,6 +21,12 @@ namespace BadActor.Shared
             RedrawNeeded?.Invoke(filter);
         }
 
+        public void GameStateChanged()
+        {
+            OnGameStateChanged?.Invoke();
+            // RedrawNeeded?.Invoke(null);  // should we? just for good measure?
+        }
+
         private Application _applicationBeingDragged;
         public Application ApplicationBeingDragged
         {
@@ -37,5 +43,6 @@ namespace BadActor.Shared
 
         public event Action<Type> RedrawNeeded;
         public event Action OnApplicationDraggedChanged;
+        public event Action OnGameStateChanged;
     }
 }
