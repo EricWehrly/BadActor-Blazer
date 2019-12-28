@@ -1,4 +1,7 @@
-﻿function collapsibleMenuItem(handle) {
+﻿// What we were trying to do:
+// https://codepen.io/brundolf/pen/bqqeye
+
+function collapsibleMenuItem(handle) {
 
     var item;
     // boy, this got ugly, didn't it?
