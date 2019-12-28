@@ -42,6 +42,8 @@ namespace BadActor.GameObjects
         private void onComplete()
         {
             appState.OnGameStateChanged -= completeIfCriteriaMet;
+
+            appState.GameStateChanged();
         }
 
         public class ObjectiveCriteria

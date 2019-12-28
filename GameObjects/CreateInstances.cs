@@ -50,26 +50,49 @@ namespace BadActor.GameObjects
 
         private void createObjectives()
         {
-            // 
             new Objective("Get some money", new Objective.ObjectiveCriteria[] {
                 coinMinerPurchased, coinMinerApplied
             });
 
-            // spread some love (make a virus)
+            new Objective("Spread some love", new Objective.ObjectiveCriteria[] {
+                malwareWritten, distributorUnlocked
+            });
 
             // get some workers
         }
 
         private Objective.ObjectiveCriteria coinMinerPurchased =
-            new Objective.ObjectiveCriteria("Purchase the Coin Miner from Apps", () =>
+            new Objective.ObjectiveCriteria("Purchase coin miner from apps", () =>
         {
             return Application.Get("Coin Miner").Unlocked;
         });
 
         private Objective.ObjectiveCriteria coinMinerApplied =
-            new Objective.ObjectiveCriteria("Drag Coin Miner to localhost<br />to run it on your machine", () =>
+            new Objective.ObjectiveCriteria("Drag coin miner to localhost<br />    to run it on your machine", () =>
             {
                 return Application.Get("Coin Miner").Machines.Count > 0;
+            });
+
+        private Objective.ObjectiveCriteria malwareWritten =
+            new Objective.ObjectiveCriteria("Write a piece of malware", () =>
+            {
+                foreach(ViralVector vector in ViralVector.List)
+                {
+                    if (vector.Unlocked) return true;
+                }
+
+                return false;
+            });
+
+        private Objective.ObjectiveCriteria distributorUnlocked =
+            new Objective.ObjectiveCriteria("Host a malware distributor", () =>
+            {
+                foreach(ViralDistributor distributor in ViralDistributor.List)
+                {
+                    if (distributor.Unlocked) return true;
+                }
+
+                return false;
             });
     }
 }

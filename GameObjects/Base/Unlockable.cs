@@ -29,6 +29,8 @@ namespace BadActor.GameObjects
 
             Unlocking = false;
 
+            appState.GameStateChanged();
+
             appState.SignalRedraw(GetType());
         }
     }

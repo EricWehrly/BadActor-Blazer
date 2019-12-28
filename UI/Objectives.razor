@@ -5,15 +5,25 @@
         text-decoration: dotted;
         text-decoration-line: underline;
     }
+
+    .objective.fading {
+        animation: fade 5000ms forwards;
+    }
 </style>
 
 <div id="ObjectivesContainer">
     @foreach (Objective objective in Objective.List)
     {
-        <h4>@objective.Name</h4>
-        @foreach (Objective.ObjectiveCriteria criteria in objective.CriteriaForObjective)
+        @if (!objectivesToHide.Contains(objective))
         {
-            <span class="@getObjectiveClass(criteria)"> @getDescription(criteria)</span>
+            <div class="@getObjectiveClass(objective)">
+                <h4>@objective.Name</h4>
+                @foreach (Objective.ObjectiveCriteria criteria in objective.CriteriaForObjective)
+                {
+                    <span class="@getObjectiveCriteriaClass(criteria)"> @getDescription(criteria)</span>
+                    <br />
+                }
+            </div>
             <br />
         }
     }
@@ -21,16 +31,25 @@
 
 @code {
 
+    private List<Objective> objectivesToHide = new List<Objective>();
+
+    private string getObjectiveClass(Objective objective)
+    {
+        return "objective" +
+            (objective.Complete ? " fading" : "");
+    }
+
+    private string getObjectiveCriteriaClass(Objective.ObjectiveCriteria criteria)
+    {
+        return criteria.Met ? "mdi mdi-checkbox-marked-outline" : "mdi mdi-checkbox-blank-outline";
+    }
+
     private MarkupString getDescription(Objective.ObjectiveCriteria criteria)
     {
         return (MarkupString)criteria.Description;
     }
 
-    private string getObjectiveClass(Objective.ObjectiveCriteria criteria)
-    {
-        return criteria.Met ? "mdi mdi-checkbox-marked-outline" : "mdi mdi-checkbox-blank-outline";
-    }
-
+    // Can this be in a base component?
     public void RedrawNeeded(Type filter)
     {
         if (filter != null && !filter.Equals(typeof(Objective)))
@@ -44,5 +63,26 @@
     protected override void OnInitialized()
     {
         appState.RedrawNeeded += RedrawNeeded;
+
+        appState.OnGameStateChanged += checkObjectivesToHide;
+    }
+
+    // this got weird in order to keep the domain of whether to show in the UI, but here we are
+    private void checkObjectivesToHide()
+    {
+        foreach (Objective objective in Objective.List)
+        {
+            if (objective.Complete && !objectivesToHide.Contains(objective))
+            {
+                Task.Delay(5000).ContinueWith(t =>
+                {
+                    if (!objectivesToHide.Contains(objective))
+                    {
+                        objectivesToHide.Add(objective);
+                        StateHasChanged();
+                    }
+                });
+            }
+        }
     }
 }
