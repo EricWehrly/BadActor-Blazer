@@ -18,11 +18,24 @@
             color: #555;
             text-shadow: 0px 1px 0px rgba(255,255,255,.5);
         }
+
+    /* This would be cooler with some kind of CSS dissolve, but this'll do for now */
+    .title-1 {
+        animation: fade 60s forwards;
+    }
+
+    .title-2 {
+        animation: fade 30s forwards;
+    }
+
+    .title-3 {
+        animation: fade 10s forwards;
+    }
 </style>
 
 <div class="titleCard">
-    <p>kinexys presents</p>
-    <h1>Bad Actor</h1>
-    <p>a game about breaking in, taking control, and spreading out</p>
-    <p>and apparently about spending all damn morning fussing with Blazor and react</p>
+    <p class="title-2">kinexys presents</p>
+    <h1 class="title-1">Bad Actor</h1>
+    <p class="title-2">a game about breaking in, taking control, and spreading out</p>
+    <p class="title-3">and apparently about spending all damn morning fussing with Blazor and react</p>
 </div>
