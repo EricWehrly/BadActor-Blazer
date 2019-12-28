@@ -1,7 +1,6 @@
 ﻿using BadActor.Attributes;
 using System;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace BadActor.GameObjects
 {
@@ -51,24 +50,26 @@ namespace BadActor.GameObjects
 
         private void createObjectives()
         {
-            new Objective("Get some money", 
-                "Open Apps, <br />Purchase the Coin Miner,<br />Drag it to localhost to run it on your machine.",
-                new Func<bool>[] { coinMinerPurchased, coinMinerApplied });
+            // 
+            new Objective("Get some money", new Objective.ObjectiveCriteria[] {
+                coinMinerPurchased, coinMinerApplied
+            });
+
+            // spread some love (make a virus)
+
+            // get some workers
         }
 
-        private bool coinMinerPurchased()
+        private Objective.ObjectiveCriteria coinMinerPurchased =
+            new Objective.ObjectiveCriteria("Purchase the Coin Miner from Apps", () =>
         {
-            Console.WriteLine("Hello 1");
-            
-            var coinMiner = Application.Get("Coin Miner");
-            return coinMiner.Unlocked;
-        }
+            return Application.Get("Coin Miner").Unlocked;
+        });
 
-        private bool coinMinerApplied()
-        {
-            var coinMiner = Application.Get("Coin Miner");
-
-            return coinMiner.Machines.Count > 0;
-        }
+        private Objective.ObjectiveCriteria coinMinerApplied =
+            new Objective.ObjectiveCriteria("Drag Coin Miner to localhost<br />to run it on your machine", () =>
+            {
+                return Application.Get("Coin Miner").Machines.Count > 0;
+            });
     }
 }

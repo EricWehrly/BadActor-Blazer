@@ -4,21 +4,15 @@ namespace BadActor.GameObjects
 {
     public class Objective : GameObject<Objective>
     {
-        public string Description { get; private set; }
-
         public bool Complete { get; private set; }
 
-        // private Action CheckCriteria { get; set; }
+        public ObjectiveCriteria[] CriteriaForObjective { get; private set; }
 
-        private Func<bool>[] checkCriteriaMet { get; set; }
-
-        public Objective(string name, string description, Func<bool>[] criteriaMet)
+        public Objective(string name, ObjectiveCriteria[] objectiveCriterias)
         {
             Name = name;
 
-            Description = description;
-
-            checkCriteriaMet = criteriaMet;
+            CriteriaForObjective = objectiveCriterias;
 
             // ugh we shouldn't have to do this but stupid appstate isn't ready for event sub?
             appState.SignalRedraw(GetType());
@@ -29,31 +23,47 @@ namespace BadActor.GameObjects
         private void completeIfCriteriaMet()
         {
             Complete = true;
-            foreach(Func<bool> criteriaCheckFunction in checkCriteriaMet)
+            foreach(ObjectiveCriteria objectiveCriteria in CriteriaForObjective)
             {
-                if(criteriaCheckFunction() == false)
+                if(objectiveCriteria.CheckCriteria() == false)
                 {
                     Complete = false;
                 }
             }
 
-            Console.WriteLine("Complete is " + Complete);
+            if(Complete == true)
+            {
+                onComplete();
+            }
 
             appState.SignalRedraw(GetType());
         }
 
-        private void complete()
+        private void onComplete()
         {
-            Complete = true;
-
-            // appState.OnGameStateChanged -= CheckCriteria;
+            appState.OnGameStateChanged -= completeIfCriteriaMet;
         }
 
         public class ObjectiveCriteria
         {
-            // Func<bool> criteria met
+            public string Description { get; private set; }
+            public bool Met { get; set; }
 
-            // string description
+            private Func<bool> doCriteriaCheck { get; set; }
+
+            public ObjectiveCriteria(string description, Func<bool> checkCriteria)
+            {
+                Description = description;
+
+                doCriteriaCheck = checkCriteria;
+            }
+
+            public bool CheckCriteria()
+            {
+                Met = doCriteriaCheck();
+
+                return Met;
+            }
         }
     }
 }

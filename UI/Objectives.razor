@@ -11,21 +11,24 @@
     @foreach (Objective objective in Objective.List)
     {
         <h4>@objective.Name</h4>
-        <br />
-        <span class="@getObjectiveClass(objective)"> @getDescription(objective)</span>
+        @foreach (Objective.ObjectiveCriteria criteria in objective.CriteriaForObjective)
+        {
+            <span class="@getObjectiveClass(criteria)"> @getDescription(criteria)</span>
+            <br />
+        }
     }
 </div>
 
 @code {
 
-    private MarkupString getDescription(Objective objective)
+    private MarkupString getDescription(Objective.ObjectiveCriteria criteria)
     {
-        return (MarkupString)objective.Description;
+        return (MarkupString)criteria.Description;
     }
 
-    private string getObjectiveClass(Objective objective)
+    private string getObjectiveClass(Objective.ObjectiveCriteria criteria)
     {
-        return objective.Complete ? "mdi mdi-checkbox-marked-outline" : "mdi mdi-checkbox-blank-outline";
+        return criteria.Met ? "mdi mdi-checkbox-marked-outline" : "mdi mdi-checkbox-blank-outline";
     }
 
     public void RedrawNeeded(Type filter)
