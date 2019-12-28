@@ -1,0 +1,114 @@
+﻿@using System.Timers;
+
+<style>
+    .progressiveBackground {
+        transition: background 1s ease-out;
+        background-size: 100% 100%;
+        background-repeat: repeat-x;
+        background-position: 0px;
+    }
+</style>
+
+
+<div class="progressiveBackground" style="@backgroundStyle(); background-position: @backgroundOffset;">
+    @ChildContent
+</div>
+
+@code {
+
+    private string backgroundOffset { get; set; } = "0px";
+
+    private Timer timer;
+
+    private DateTime startTime;
+
+    [Parameter]
+    public string Color { get; set; }
+
+    [Parameter]
+    public int UpdateInterval { get; set; } = 250;
+
+    [Parameter]
+    public double ProgressAmount { get; set; } = -1;
+
+    [Parameter]
+    public int TimerInterval { get; set; }
+
+    [Parameter]
+    public bool FireOnce { get; set; } = true;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private string backgroundStyle() {
+        return
+        "background-image: linear-gradient(90deg," +
+        colorAsRGBAsegment() + ", 1) 0%, " +
+        colorAsRGBAsegment() + ", 0) 100%);";
+    }
+
+    // This will be easier later using color class
+    private string colorAsRGBAsegment()
+    {
+        return Color
+            .Replace("rgb", "rgba")
+            .Replace(")", "");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(ProgressAmount != -1)
+        {
+            setupProgressTimer();
+        }
+        else if (TimerInterval != 0)
+        {
+            setupIntervalTimer();
+        }
+
+        /*
+        var timer = new System.Threading.Timer((_) => {
+            backgroundOffset = DateTime.UtcNow.Second + "px";
+            // Time = DateTime.UtcNow.ToString();
+            StateHasChanged();
+        }, null, 0, TIMER_INTERVAL);
+        */
+    }
+
+    private void setupProgressTimer()
+    {
+        startTime = DateTime.Now;
+        timer = new Timer(UpdateInterval);
+        timer.Elapsed += new ElapsedEventHandler(progressInterval);
+        timer.Start();
+    }
+
+    private void setupIntervalTimer()
+    {
+        startTime = DateTime.Now;
+        timer = new Timer(UpdateInterval);
+        timer.Elapsed += new ElapsedEventHandler(timerInterval);
+        timer.Start();
+    }
+
+    private void progressInterval(object source, ElapsedEventArgs e)
+    {
+        backgroundOffset = (int) ProgressAmount + "px";
+    }
+
+    private void timerInterval(object source, ElapsedEventArgs e)
+    {
+        double elapsed = (DateTime.Now - startTime).TotalMilliseconds;
+        int progress = (int) (elapsed / TimerInterval);
+        backgroundOffset = (50 * progress) + "%";
+
+        if (progress >= 1)
+        {
+            timer.Stop();
+            timer.Dispose();
+            timer = null;
+        }
+
+        StateHasChanged();
+    }
+}

@@ -20,22 +20,28 @@
 
     @foreach (ViralDistributor distributor in ViralDistributor.List)
     {
-        <div class="viralDistributor">
-            @distributor.Name<br />
+    <div class="viralDistributor">
+        @distributor.Name<br />
 
-            @foreach (ViralVector vector in distributor.DistributedVectors)
-            {
-                <span class=@getDistributedVectorClass(vector)></span>
-            }
+        @foreach (ViralVector vector in distributor.DistributedVectors)
+        {
+            <span class=@getDistributedVectorClass(vector)></span>
+        }
 
-            @if (distributor.Count == 0)
-            {
-                <br />
-                <span class="@purchaseClass(distributor)" @onclick="@distributor.Buy">
-                    Host <span class="@coins.Icon"> @distributor.Cost</span>
-                </span>
-            }
-        </div>
+        <br />
+        @if (distributor.Count == 0)
+        {
+            <span class="@purchaseClass(distributor)" @onclick="@distributor.Buy">
+                Host <span class="@coins.Icon"> @distributor.Cost</span>
+            </span>
+        }
+        else
+        {            
+            <ProgressBackground Color="rgb(150, 20, 180)" ProgressAmount="@ViralDistributor.MachineProgress">
+                <span class="mdi mdi-desktop-classic"></span>
+            </ProgressBackground>
+        }
+    </div>
     }
 </div>
 

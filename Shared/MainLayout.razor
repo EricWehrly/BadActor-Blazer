@@ -31,6 +31,13 @@
         right: 1em;
     }
 
+    #MainRight {
+        right: .5em;
+        position: fixed;
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+
     #MainTop {
         position: fixed;
         top: .5em;
@@ -69,6 +76,10 @@
 
     <div id="MainBottom">
         <BadActor.UI.Machines />
+    </div>
+
+    <div id="MainRight">
+        <BadActor.UI.Objectives />
     </div>
 
     <div class="content">
