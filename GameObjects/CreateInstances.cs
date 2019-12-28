@@ -50,15 +50,17 @@ namespace BadActor.GameObjects
 
         private void createObjectives()
         {
-            new Objective("Get some money", new Objective.ObjectiveCriteria[] {
+            var getMoney = new Objective("Get some money", new Objective.ObjectiveCriteria[] {
                 coinMinerPurchased, coinMinerApplied
             });
 
-            new Objective("Spread some love", new Objective.ObjectiveCriteria[] {
+            var writeVirus = new Objective("Spread some love", new Objective.ObjectiveCriteria[] {
                 malwareWritten, distributorUnlocked
-            });
+            }, new[] { getMoney });
 
-            // get some workers
+            new Objective("Get some workers", new Objective.ObjectiveCriteria[] {
+                getTenWorkers
+            }, new[] { writeVirus });
         }
 
         private Objective.ObjectiveCriteria coinMinerPurchased =
@@ -68,7 +70,7 @@ namespace BadActor.GameObjects
         });
 
         private Objective.ObjectiveCriteria coinMinerApplied =
-            new Objective.ObjectiveCriteria("Drag coin miner to localhost<br />    to run it on your machine", () =>
+            new Objective.ObjectiveCriteria("Drag coin miner to localhost<br />to run it on your machine", () =>
             {
                 return Application.Get("Coin Miner").Machines.Count > 0;
             });
@@ -93,6 +95,12 @@ namespace BadActor.GameObjects
                 }
 
                 return false;
+            });
+
+        private Objective.ObjectiveCriteria getTenWorkers =
+            new Objective.ObjectiveCriteria("Accumulate 10 workers<br />from malware distribution.", () =>
+            {
+                return Machine.List.Count > 9;
             });
     }
 }

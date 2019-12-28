@@ -14,7 +14,7 @@
 <div id="ObjectivesContainer">
     @foreach (Objective objective in Objective.List)
     {
-        @if (!objectivesToHide.Contains(objective))
+        @if (shouldRenderObjective(objective))
         {
             <div class="@getObjectiveClass(objective)">
                 <h4>@objective.Name</h4>
@@ -32,6 +32,18 @@
 @code {
 
     private List<Objective> objectivesToHide = new List<Objective>();
+
+    private bool shouldRenderObjective(Objective objective)
+    {
+        if (objectivesToHide.Contains(objective)) return false;
+
+        foreach(Objective prerequisite in objective.Prerequisites)
+        {
+            if (prerequisite.Complete == false) return false;
+        }
+
+        return true;
+    }
 
     private string getObjectiveClass(Objective objective)
     {

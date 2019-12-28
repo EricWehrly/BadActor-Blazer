@@ -4,15 +4,23 @@ namespace BadActor.GameObjects
 {
     public class Objective : GameObject<Objective>
     {
-        public bool Complete { get; private set; }
+        public bool Complete { get; private set; } = false;
 
         public ObjectiveCriteria[] CriteriaForObjective { get; private set; }
 
-        public Objective(string name, ObjectiveCriteria[] objectiveCriterias)
+        public Objective[] Prerequisites { get; private set; } = new Objective[] { };
+
+        public Objective(string name, ObjectiveCriteria[] objectiveCriterias,
+            Objective[] prerequisites = null)
         {
             Name = name;
 
             CriteriaForObjective = objectiveCriterias;
+
+            if (prerequisites != null)
+            {
+                Prerequisites = prerequisites;
+            }
 
             // ugh we shouldn't have to do this but stupid appstate isn't ready for event sub?
             appState.SignalRedraw(GetType());
@@ -46,6 +54,7 @@ namespace BadActor.GameObjects
             appState.GameStateChanged();
         }
 
+        // TODO: Progressible criteria (like showing how many out of 10 workers we have)
         public class ObjectiveCriteria
         {
             public string Description { get; private set; }
