@@ -60,8 +60,6 @@ namespace BadActor.GameObjects
             Icons = icons;
 
             if (distributedVectors != null) DistributedVectors.AddRange(distributedVectors);
-
-            List.Add(this);
         }
 
         public void Buy()

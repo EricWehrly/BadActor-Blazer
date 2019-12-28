@@ -20,8 +20,6 @@ namespace BadActor.GameObjects
 
             appState.OnGameStateChanged += CheckCriteria;
 
-            List.Add(this);
-
             // ugh we shouldn't have to do this but stupid appstate isn't ready for event sub?
             appState.SignalRedraw(GetType());
         }

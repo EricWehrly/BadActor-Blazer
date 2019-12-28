@@ -20,8 +20,6 @@
             Name = name;
             Icon = icon;
             Value = initialValue;
-
-            List.Add(this);
         }
 
         public double Add(double amount)

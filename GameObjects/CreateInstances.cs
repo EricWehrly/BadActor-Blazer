@@ -7,7 +7,7 @@ namespace BadActor.GameObjects
     [AutoRegister]
     public class CreateInstances
     {
-        private readonly float COINS_PER_PROCESSING_POWER = 0.25f;
+        private readonly float COINS_PER_PROCESSING_POWER = 0.025f;
 
         // Who knows, maybe we can take the example and load all this from json
         public CreateInstances()
@@ -50,7 +50,7 @@ namespace BadActor.GameObjects
 
         private void createObjectives()
         {
-            new Objective("Test", "This is a test", () =>
+            new Objective("Get some money", "This is a test", () =>
             {
                 Console.WriteLine("Apparently the game state changed.");
 

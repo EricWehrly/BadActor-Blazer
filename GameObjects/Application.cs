@@ -43,8 +43,6 @@ namespace BadActor.GameObjects
             Unlocked = unlocked;
 
             think = thinkMethod;
-
-            List.Add(this);
         }
 
         public void RunOnMachine(Machine machine)

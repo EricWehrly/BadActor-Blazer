@@ -25,8 +25,6 @@
             Cost = initialCost = cost;
 
             VectorType = vectorType;
-
-            List.Add(this);
         }
 
         public void Buy()

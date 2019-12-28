@@ -2,7 +2,7 @@
 
 namespace BadActor.GameObjects
 {
-    public abstract class GameObject<T> : GameObjectBase<T> where T: GameObjectBase<T>
+    public abstract class GameObject<T> : GameObjectBase<T> where T : GameObjectBase<T>
     {
         public static List<T> List { get; } = new List<T>();
 
@@ -14,6 +14,11 @@ namespace BadActor.GameObjects
             }
 
             return null;
+        }
+
+        public GameObject()
+        {
+            List.Add(this as T);
         }
     }
 }
