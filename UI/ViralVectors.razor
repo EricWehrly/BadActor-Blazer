@@ -24,7 +24,9 @@
             <span class="@vector.Icon"> @vector.DisplayName</span>
             @if (!vector.Unlocked && !vector.Unlocking)
             {
-                <span class="btn" @onclick="@(e => unlockVector(vector))">Write <span class="mdi mdi-clock"> @vector.UnlockTime</span></span>
+                <span class="@unlockVectorClass()" @onclick="@(e => unlockVector(vector))">
+                    Write <span class="mdi mdi-clock"> @vector.UnlockTime</span>
+                </span>
             } else if(vector.Unlocking) {
                 <span class="opacity-half"> writing...</span>
             }
@@ -42,6 +44,17 @@
 
     Timer unlockTimer;
 
+    protected override async Task OnInitializedAsync()
+    {
+        appState.RedrawNeeded += RedrawNeeded;
+    }
+
+    private string unlockVectorClass()
+    {
+        return "btn" +
+            (vectorBeingUnlocked() ? " disabled" : "");
+    }
+
     private string vectorClass(ViralVector vector)
     {
         if (vector.Unlocked) return "vector unlocked";
@@ -51,6 +64,8 @@
 
     private void unlockVector(ViralVector vector)
     {
+        if (vectorBeingUnlocked()) return;
+
         unlockingStart = DateTime.Now;
 
         vector.StartUnlock();
@@ -91,8 +106,13 @@
         StateHasChanged();
     }
 
-    protected override async Task OnInitializedAsync()
+    private bool vectorBeingUnlocked()
     {
-        appState.RedrawNeeded += RedrawNeeded;
+        foreach(ViralVector vector in ViralVector.List)
+        {
+            if (vector.Unlocking) return true;
+        }
+
+        return false;
     }
 }
