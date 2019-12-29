@@ -69,7 +69,7 @@
     public void RedrawNeeded(Type filter)
     {
         if (filter != null && !(filter.Equals(typeof(ViralDistributor))
-            || filter.Equals(typeof(ViralVector))))
+            || !(filter.Equals(typeof(ViralVector)))))
         {
             return;
         }

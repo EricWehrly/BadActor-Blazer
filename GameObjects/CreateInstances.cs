@@ -25,7 +25,7 @@ namespace BadActor.GameObjects
                 // Console.WriteLine(application.name + " thinking on " + application.Machines.Count + " machines.");
             });
 
-            new Application("Nigerian Prince", null, 3000);
+            new Application("Zamundan Prince", null, 3000);
 
             createViruses();
 
