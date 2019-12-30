@@ -27,6 +27,8 @@ namespace BadActor.GameObjects
 
             new Application("Zamundan Prince", null, 3000);
 
+            new Exploit("OS Vulnerability");
+
             createViruses();
 
             // Well this is dangeous. But we need to wait for appState to be ready ...
