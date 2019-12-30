@@ -1,0 +1,8 @@
+﻿.blazored-modal {
+    background-color: #222;
+    color: var(--ba-font-color);
+    border-color: var(--ba-border-color-light);
+    text-shadow: 0 0 5px #C8C8C8;
+    font: 1rem Inconsolata monospace;
+    font-family: 'Lucida Console';
+}

@@ -21,6 +21,10 @@ h1, h2, h3, h4, h5, h6 {
     text-shadow: 0 0 2px #555;
 }
 
+button {
+    color: var(--ba-font-color);
+}
+
 .btn {
     cursor: pointer;
     padding: .2rem .35rem
