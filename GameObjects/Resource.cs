@@ -13,7 +13,6 @@
         }
 
         public double Value { get; private set; }
-        public string Icon { get; private set; }
 
         public Resource(string name, string icon, int initialValue = 0)
         {

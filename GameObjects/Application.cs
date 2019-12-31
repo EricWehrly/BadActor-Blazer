@@ -23,7 +23,6 @@ namespace BadActor.GameObjects
             }
         }
 
-        public string Icon { get; private set; }
         public double Cost { get; private set; }
         public bool Unlocked { get; private set; }
         public List<Machine> Machines { get; } = new List<Machine>();

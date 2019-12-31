@@ -2,7 +2,6 @@
 {
     public class ViralVector : Unlockable<ViralVector>
     {
-        public string Icon { get; private set; }
         public string DisplayName
         {
             get

@@ -61,7 +61,7 @@ namespace BadActor.GameObjects
             var musicVector = new ViralVector("Music", 30, "mdi mdi-music");
             var movieVector = new ViralVector("Movie", 60, "mdi mdi-movie-open");
             var gameVector = new ViralVector("Game", 300, "mdi mdi-gamepad-variant-outline");
-            var antiVirusVector = new ViralVector("Anti-Virus", 600, "mdi mdi-software");
+            var antiVirusVector = new ViralVector("Anti-Virus", 600, "mdi mdi-application");
 
             new ViralDistributor("XXX Website", 100, new[] { "mdi-web" }, new[] { movieVector });
             new ViralDistributor("Pirate Website", 80, new[] { "mdi-pirate" },

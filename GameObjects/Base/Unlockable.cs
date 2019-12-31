@@ -1,13 +1,9 @@
-﻿using BadActor.Shared;
-using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace BadActor.GameObjects
 {
     public class Unlockable<T> : GameObject<T> where T : GameObjectBase
     {
-        private static AppState appState { get { return AppState.Instance; } }
-
         public bool Unlocked { get; protected set; }
         public double UnlockTime { get; protected set; }
         public bool Unlocking { get; protected set; }

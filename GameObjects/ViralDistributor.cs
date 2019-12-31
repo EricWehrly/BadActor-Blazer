@@ -11,6 +11,21 @@ namespace BadActor.GameObjects
 
         private static readonly double MACHINE_UNLOCK_THRESHOLD = 100;
 
+        public static List<ViralDistributor> GetDistributionChannels(ViralVector vector)
+        {
+            var distributors = new List<ViralDistributor>();
+
+            foreach (ViralDistributor distributor in ViralDistributor.List)
+            {
+                if(distributor.DistributedVectors.Contains(vector))
+                {
+                    distributors.Add(distributor);
+                }
+            }
+
+            return distributors;
+        }
+
         static ViralDistributor()
         {
             GameLoop.RegisterLoopMethod(viralDistributorGameLoop);

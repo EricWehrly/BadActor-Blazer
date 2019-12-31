@@ -1,29 +1,35 @@
-﻿<span class="btn btn-info" @onclick="@previousIndex">&lt;</span>
-@for (var index = 0; index < CarouselItems.Count; index++)
-{
-    @if (index == currentIndex)
-    {
-        <div class="box selected">@CarouselItems[index].Name</div>
+﻿<style>
+    .BA-carousel .btn {
+        height: 100%;
     }
-    else
-    {
-        <div class="box">@CarouselItems[index].Name</div>
-    }
-}
-@foreach (GameObjectBase carouselItem in CarouselItems)
-{
+</style>
 
-}
-<span class="btn btn-info" @onclick="@nextIndex">&gt;</span>
+<div class="BA-carousel">
+    <span class="title">@Title</span>
+    <br />
+
+    <span class="btn btn-info" @onclick="@previousIndex">&lt;</span>
+    @for (var index = 0; index < Items.Count; index++)
+    {
+        @if (index == currentIndex)
+        {
+            <div class="box selected">@Items[index].Name</div>
+        }
+        else
+        {
+            <div class="box">@Items[index].Name</div>
+        }
+    }
+    <span class="btn btn-info" @onclick="@nextIndex">&gt;</span>
+</div>
 
 @code {
 
     [Parameter]
-    public List<GameObjectBase> CarouselItems { get; set; }
+    public string Title { get; set; }
 
-    // There has to be a cleaner way to do this ...
     [Parameter]
-    public GameObjectBase SelectedItem { get; set; }
+    public List<GameObjectBase> Items { get; set; }
 
     [Parameter]
     public Action<GameObjectBase> SelectedItemChanged { get; set; }
@@ -36,23 +42,26 @@
 
         if (currentIndex < 0)
         {
-            currentIndex = CarouselItems.Count - 1;
+            currentIndex = Items.Count - 1;
         }
 
-        SelectedItem = CarouselItems[currentIndex];
-        SelectedItemChanged?.Invoke(SelectedItem);
+        SelectedItemChanged?.Invoke(Items[currentIndex]);
     }
 
     private void nextIndex()
     {
         currentIndex++;
 
-        if (currentIndex >= CarouselItems.Count)
+        if (currentIndex >= Items.Count)
         {
             currentIndex = 0;
         }
+        
+        SelectedItemChanged?.Invoke(Items[currentIndex]);
+    }
 
-        SelectedItem = CarouselItems[currentIndex];
-        SelectedItemChanged?.Invoke(SelectedItem);
+    protected override void OnInitialized()
+    {
+        SelectedItemChanged?.Invoke(Items[currentIndex]);
     }
 }
