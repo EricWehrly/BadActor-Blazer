@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BadActor.GameObjects
 {
-    public class Unlockable
+    public class Unlockable<T> : GameObject<T> where T : GameObjectBase
     {
         private static AppState appState { get { return AppState.Instance; } }
 

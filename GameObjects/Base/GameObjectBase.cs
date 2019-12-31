@@ -2,10 +2,10 @@
 
 namespace BadActor.GameObjects
 {
-    public class GameObjectBase<T>
+    public class GameObjectBase
     {
         protected static AppState appState { get { return AppState.Instance; } }
 
-        public string Name { get; protected set; }
+        public virtual string Name { get; protected set; }
     }
 }

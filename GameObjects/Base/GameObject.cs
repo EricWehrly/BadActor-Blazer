@@ -2,7 +2,7 @@
 
 namespace BadActor.GameObjects
 {
-    public abstract class GameObject<T> : GameObjectBase<T> where T : GameObjectBase<T>
+    public abstract class GameObject<T> : GameObjectBase where T : GameObjectBase
     {
         public static List<T> List { get; } = new List<T>();
 
