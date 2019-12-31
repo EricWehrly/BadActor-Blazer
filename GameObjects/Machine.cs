@@ -14,14 +14,14 @@ namespace BadActor.GameObjects
             return machines.ToList();
         }
 
-        public ComputingPower MachineComputingPower { get; private set; } = ComputingPower.Ancient;
-        public AccessLevel MachineAccessLevel { get; private set; } = AccessLevel.GUEST;
+        public ComputingPower MachineComputingPower { get; private set; } = ComputingPower.Granny;
+        public AccessLevel MachineAccessLevel { get; private set; } = AccessLevel.guest;
         public List<Application> Applications { get; } = new List<Application>();
 
         public Machine(string name)
         {
             // boolean constructor is localhost ...
-            if (name == "localhost") MachineAccessLevel = AccessLevel.ROOT;
+            if (name == "localhost") MachineAccessLevel = AccessLevel.root;
 
             Name = name;
 
@@ -54,20 +54,20 @@ namespace BadActor.GameObjects
 
         public enum ComputingPower
         {
-            Ancient = 100,
+            Granny = 100,
             Disposable = 500,
-            Grandma = 1000,
-            Standard = 1000,
+            Family = 1000,
+            Gaming = 1000,
             Server = 2500,
-            Gaming = 5000
+            Mainframe = 5000
         }
 
         public enum AccessLevel
         {
-            ROOT = 1,
-            ADMIN = 2,
-            USER = 3,
-            GUEST = 4
+            root = 1,
+            admin = 2,
+            user = 3,
+            guest = 4
         }
     }
 }
