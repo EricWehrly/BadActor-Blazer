@@ -1,4 +1,5 @@
 ﻿using BadActor.Attributes;
+using BadActor.GameObjects.Exploits;
 using System;
 using System.Threading.Tasks;
 
@@ -14,23 +15,42 @@ namespace BadActor.GameObjects
         {
             new Machine("localhost");
 
-            var coins = new Resource("Coins", "mdi mdi-coin");
+            new Resource("Coins", "mdi mdi-coin");
 
-            // should apps have a 'type'
-            // and coin miner would show the coin currency icon to denote it's a money making type?
-            new Application("Coin Miner", null, 0, (application, elapsedSeconds) =>
-            {
-                double coinsToAdd = application.ProcessingPower * COINS_PER_PROCESSING_POWER * elapsedSeconds;
-                coins.Add(coinsToAdd);
-                // Console.WriteLine(application.name + " thinking on " + application.Machines.Count + " machines.");
-            });
+            createApplications();
 
-            new Application("Zamundan Prince", null, 3000);
+            createExploits();
 
             createViruses();
 
             // Well this is dangeous. But we need to wait for appState to be ready ...
             Task.Delay(500).ContinueWith(e => createObjectives());
+        }
+
+        private void createApplications()
+        {
+            // should apps have a 'type'
+            // and coin miner would show the coin currency icon to denote it's a money making type?
+            new Application("Coin Miner", null, 0, (application, elapsedSeconds) =>
+            {
+                double coinsToAdd = application.ProcessingPower * COINS_PER_PROCESSING_POWER * elapsedSeconds;
+                Resource.Get("Coins").Add(coinsToAdd);
+                // Console.WriteLine(application.name + " thinking on " + application.Machines.Count + " machines.");
+            });
+
+            new Application("Music Sharer", null, 0, (application, elapsedSeconds) =>
+            {
+                // functions as a music distributor ...
+            });
+
+            new Application("Zamundan Prince", null, 3000);
+
+            // new Application("Exploit Finder");
+
+            // Open-Source Webserver
+            // Rinkydink Webserver
+            // Commercial Webserver
+            // Enterprise Webserver
         }
 
         private void createViruses()
@@ -46,6 +66,16 @@ namespace BadActor.GameObjects
             new ViralDistributor("XXX Website", 100, new[] { "mdi-web" }, new[] { movieVector });
             new ViralDistributor("Pirate Website", 80, new[] { "mdi-pirate" },
                 new[] { musicVector, movieVector, gameVector, antiVirusVector });
+        }
+
+        private void createExploits()
+        {
+            var fakeOsExploit = new Exploitable("FakeOS");
+            // other OS's
+            // Applications (like webservers ...)
+
+            new Exploit(fakeOsExploit);
+
         }
 
         private void createObjectives()

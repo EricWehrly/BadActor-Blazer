@@ -1,0 +1,58 @@
+﻿<span class="btn btn-info" @onclick="@previousIndex">&lt;</span>
+@for (var index = 0; index < CarouselItems.Count; index++)
+{
+    @if (index == currentIndex)
+    {
+        <div class="box selected">@CarouselItems[index].Name</div>
+    }
+    else
+    {
+        <div class="box">@CarouselItems[index].Name</div>
+    }
+}
+@foreach (GameObjectBase carouselItem in CarouselItems)
+{
+
+}
+<span class="btn btn-info" @onclick="@nextIndex">&gt;</span>
+
+@code {
+
+    [Parameter]
+    public List<GameObjectBase> CarouselItems { get; set; }
+
+    // There has to be a cleaner way to do this ...
+    [Parameter]
+    public GameObjectBase SelectedItem { get; set; }
+
+    [Parameter]
+    public Action<GameObjectBase> SelectedItemChanged { get; set; }
+
+    private int currentIndex = 0;
+
+    private void previousIndex()
+    {
+        currentIndex--;
+
+        if (currentIndex < 0)
+        {
+            currentIndex = CarouselItems.Count - 1;
+        }
+
+        SelectedItem = CarouselItems[currentIndex];
+        SelectedItemChanged?.Invoke(SelectedItem);
+    }
+
+    private void nextIndex()
+    {
+        currentIndex++;
+
+        if (currentIndex >= CarouselItems.Count)
+        {
+            currentIndex = 0;
+        }
+
+        SelectedItem = CarouselItems[currentIndex];
+        SelectedItemChanged?.Invoke(SelectedItem);
+    }
+}
