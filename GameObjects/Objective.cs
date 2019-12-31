@@ -4,6 +4,8 @@ namespace BadActor.GameObjects
 {
     public class Objective : GameObject<Objective>
     {
+        public static Action<Objective> OnComplete;
+
         public bool Complete { get; private set; } = false;
 
         public ObjectiveCriteria[] CriteriaForObjective { get; private set; }
@@ -41,15 +43,17 @@ namespace BadActor.GameObjects
 
             if(Complete == true)
             {
-                onComplete();
+                complete();
             }
 
             appState.SignalRedraw(GetType());
         }
 
-        private void onComplete()
+        private void complete()
         {
             appState.OnGameStateChanged -= completeIfCriteriaMet;
+
+            OnComplete?.Invoke(this);
 
             appState.GameStateChanged();
         }

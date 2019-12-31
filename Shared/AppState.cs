@@ -24,7 +24,7 @@ namespace BadActor.Shared
         public void GameStateChanged()
         {
             OnGameStateChanged?.Invoke();
-            // RedrawNeeded?.Invoke(null);  // should we? just for good measure?
+            RedrawNeeded?.Invoke(null);  // should we? just for good measure?
         }
 
         private Application _applicationBeingDragged;

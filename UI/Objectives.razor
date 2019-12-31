@@ -6,8 +6,12 @@
         text-decoration-line: underline;
     }
 
-    .objective.fading {
+    .objective.fading-out {
         animation: fade 5000ms forwards;
+    }
+
+    .objective.fading-in {
+        animation: fade 2500ms reverse;
     }
 </style>
 
@@ -47,8 +51,8 @@
 
     private string getObjectiveClass(Objective objective)
     {
-        return "objective" +
-            (objective.Complete ? " fading" : "");
+        return "objective " +
+            (objective.Complete ? "fading-out" : "fading-in");
     }
 
     private string getObjectiveCriteriaClass(Objective.ObjectiveCriteria criteria)
@@ -76,25 +80,21 @@
     {
         appState.RedrawNeeded += RedrawNeeded;
 
-        appState.OnGameStateChanged += checkObjectivesToHide;
+        Objective.OnComplete += hideCompletedObjective;
     }
 
-    // this got weird in order to keep the domain of whether to show in the UI, but here we are
-    private void checkObjectivesToHide()
+    private void hideCompletedObjective(Objective objective)
     {
-        foreach (Objective objective in Objective.List)
+        if (!objectivesToHide.Contains(objective))
         {
-            if (objective.Complete && !objectivesToHide.Contains(objective))
+            Task.Delay(5000).ContinueWith(t =>
             {
-                Task.Delay(5000).ContinueWith(t =>
+                if (!objectivesToHide.Contains(objective))
                 {
-                    if (!objectivesToHide.Contains(objective))
-                    {
-                        objectivesToHide.Add(objective);
-                        StateHasChanged();
-                    }
-                });
-            }
+                    objectivesToHide.Add(objective);
+                    StateHasChanged();
+                }
+            });
         }
     }
 }
