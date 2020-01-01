@@ -6,6 +6,8 @@ namespace BadActor.GameObjects
 {
     public class Application : GameObject<Application>
     {
+        public static string Icon = "mdi mdi-application";
+
         private static readonly Multiplier processingPower;
 
         // maybe all of this, and the new application stuff should just be its own file

@@ -14,7 +14,7 @@ namespace BadActor.GameObjects
         {
             new Machine("localhost");
 
-            new Resource("Coins", "mdi mdi-coin");
+            new Resource("Coins", "mdi mdi-bitcoin");
 
             createApplications();
 

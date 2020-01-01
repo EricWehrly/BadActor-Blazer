@@ -9,14 +9,16 @@
         {
             <div class="application" draggable="true"
                  @ondragstart="@(e => ApplicationDragStart(application))" @ondragend="@ApplicationDragEnd">
-                <span class="@applicationClass"> @application.Name</span>
+                <span class="@Application.Icon"> @application.Name</span>
             </div>
         }
         else
         {
             <div class="application">
-                <span class="@applicationClass"> @application.Name</span>
-                <span class="btn btn-success" @onclick="@(e => buyApplication(application))">Buy <span class="@coins.Icon"> @application.Cost</span></span>
+                <span class="@Application.Icon"> @application.Name</span>
+                <span class="btn btn-success" @onclick="@(e => buyApplication(application))">
+                    <span class="@coins.Icon"> @application.Cost</span>
+                </span>
             </div>
         }
     }
@@ -27,7 +29,6 @@
     private Resource coins = Resource.Get("Coins");
 
     // We may later want to suppress the icon while we're dragging
-    private string applicationClass = "mdi mdi-application";
 
     private void ApplicationDragStart(Application application)
     {
