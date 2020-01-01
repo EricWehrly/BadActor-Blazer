@@ -14,6 +14,7 @@ namespace BadActor.Shared
         Stopwatch stopwatch = new Stopwatch();
 
         private List<Action<double>> loopMethods = new List<Action<double>>();
+        private static List<Action<double>> loopMethodsToRemove = new List<Action<double>>();
 
         public GameLoop()
         {
@@ -33,6 +34,11 @@ namespace BadActor.Shared
             instance.loopMethods.Add(method);
         }
 
+        public static void UnRegisterLoopMethod(Action<double> method)
+        {
+            loopMethodsToRemove.Add(method);
+        }
+
         // I'm aware that this is getting laughably bad
         private void manageInstance()
         {
@@ -50,6 +56,14 @@ namespace BadActor.Shared
             foreach (var action in loopMethods)
             {
                 action.Invoke(stopwatch.Elapsed.TotalSeconds);
+            }
+            if(loopMethodsToRemove.Count > 0)
+            {
+                foreach(var action in loopMethodsToRemove)
+                {
+                    loopMethods.Remove(action);
+                }
+                loopMethodsToRemove = new List<Action<double>>();
             }
             stopwatch.Restart();
         }

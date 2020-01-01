@@ -1,29 +1,53 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using BadActor.Shared;
 
 namespace BadActor.GameObjects
 {
     public class Unlockable<T> : GameObject<T> where T : GameObjectBase
     {
         public bool Unlocked { get; protected set; }
-        public double UnlockTime { get; protected set; }
+        public double UnlockTime
+        {
+            get
+            {
+                return unlockTime;
+            }
+            protected set
+            {
+                unlockTime = value;
+                UnlockTimeRemaining = unlockTime;
+            }
+        }
+        public double UnlockTimeRemaining { get; private set; }
         public bool Unlocking { get; protected set; }
 
-        // eventually we may want to track unlock progress in here, so we can interrupt ...
+        private double unlockTime;
 
         public void StartUnlock()
         {
-            Task.Delay((int)UnlockTime * 1000).ContinueWith(t => unlock());
+            GameLoop.RegisterLoopMethod(onGameLoop);
 
             Unlocking = true;
 
             appState.SignalRedraw(GetType());
         }
 
+        private void onGameLoop(double elapsedSeconds)
+        {
+            UnlockTimeRemaining -= elapsedSeconds;
+
+            if (UnlockTimeRemaining <= 0) unlock();
+        }
+
         private void unlock()
         {
+            Console.WriteLine(Name + " unlocked.");
+
             Unlocked = true;
 
             Unlocking = false;
+
+            GameLoop.UnRegisterLoopMethod(onGameLoop);
 
             appState.GameStateChanged();
 
