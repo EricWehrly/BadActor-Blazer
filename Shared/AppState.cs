@@ -5,14 +5,14 @@ namespace BadActor.Shared
 {
     public class AppState
     {
-        public static AppState Instance { get; private set; }
-
-        public AppState()
+        private static AppState _instance;
+        public static AppState Instance
         {
-            if (Instance == null) Instance = this;
-            else
+            get
             {
-                Console.WriteLine("AppState is not OK.");
+                if (_instance == null) _instance = new AppState();
+
+                return _instance;
             }
         }
 

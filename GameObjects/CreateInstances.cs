@@ -1,7 +1,6 @@
 ﻿using BadActor.Attributes;
 using BadActor.GameObjects.Exploits;
 using System;
-using System.Threading.Tasks;
 
 namespace BadActor.GameObjects
 {
@@ -23,8 +22,7 @@ namespace BadActor.GameObjects
 
             createViruses();
 
-            // Well this is dangeous. But we need to wait for appState to be ready ...
-            Task.Delay(500).ContinueWith(e => createObjectives());
+            createObjectives();
         }
 
         private void createApplications()

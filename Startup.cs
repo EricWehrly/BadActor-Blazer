@@ -14,7 +14,6 @@ namespace BadActor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddBlazoredModal();
-            services.AddSingleton(typeof(AppState));
             services.AddSingleton(typeof(GameLoop));
 
             foreach (var definedType in Assembly.GetExecutingAssembly().DefinedTypes)

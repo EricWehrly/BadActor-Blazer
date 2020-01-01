@@ -33,6 +33,7 @@ namespace BadActor.GameObjects
 
         private static void viralDistributorGameLoop(double elapsedSeconds)
         {
+            var initialMachineProgress = MachineProgress;
             // TODO: Optimizing this will result in a significant performance boost
             foreach (ViralDistributor distributor in List)
             {
@@ -54,7 +55,10 @@ namespace BadActor.GameObjects
                 new Machine("sucker");
                 MachineProgress -= MACHINE_UNLOCK_THRESHOLD;
             }
-            appState.SignalRedraw(typeof(ViralDistributor));
+            if (MachineProgress != initialMachineProgress)
+            {
+                appState.SignalRedraw(typeof(ViralDistributor));
+            }
         }
 
         public string[] Icons { get; private set; }

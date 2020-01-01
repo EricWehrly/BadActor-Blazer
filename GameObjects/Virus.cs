@@ -30,16 +30,11 @@ namespace BadActor.GameObjects
         {
             Console.WriteLine("Beginning virus " + name);
             Name = name;
-
             Exploit = exploit;
-
             Vector = vector;
-
             UnlockTime = unlockTime;
 
             StartUnlock();
-
-            appState.SignalRedraw(typeof(Virus));
         }
     }
 }

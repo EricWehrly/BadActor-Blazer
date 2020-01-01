@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace BadActor.GameObjects
 {
@@ -19,6 +20,8 @@ namespace BadActor.GameObjects
         public GameObject()
         {
             List.Add(this as T);
+
+            appState.SignalRedraw(typeof(T));
         }
     }
 }
