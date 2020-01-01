@@ -1,4 +1,6 @@
-﻿namespace BadActor.GameObjects
+﻿using BadActor.GameObjects.Enums;
+
+namespace BadActor.GameObjects
 {
     // Maybe malware is an infiltration vector
     // and 'Audio' is a vector .. channel ?
@@ -10,10 +12,10 @@
         {
             get
             {
-                return Name + " " + VectorType;
+                return Name + " " + InfiltrationType;
             }
         }
-        public InfiltrationType VectorType;
+        public InfiltrationType InfiltrationType;
 
         private double initialCost;
 
@@ -24,7 +26,7 @@
 
             Cost = initialCost = cost;
 
-            VectorType = vectorType;
+            InfiltrationType = vectorType;
         }
 
         public void Buy()
@@ -34,13 +36,6 @@
                 Count++;
                 recalculateCost();
             }
-        }
-
-        public enum InfiltrationType
-        {
-            Malware,
-            Worm,
-            Vulnerability
         }
 
         // TODO: cost multiplier

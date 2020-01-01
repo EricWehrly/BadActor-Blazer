@@ -1,4 +1,6 @@
-﻿namespace BadActor.GameObjects
+﻿using BadActor.GameObjects.Enums;
+
+namespace BadActor.GameObjects
 {
     public class ViralVector : Unlockable<ViralVector>
     {
@@ -6,10 +8,10 @@
         {
             get
             {
-                return Name + " " + VectorType;
+                return Name + " " + InfiltrationType;
             }
         }
-        public InfiltrationType VectorType;
+        public InfiltrationType InfiltrationType;
 
         public ViralVector(string name, double unlockTime = 30, string icon = null,
             InfiltrationType vectorType = InfiltrationType.Malware)
@@ -24,14 +26,7 @@
 
             Icon = icon;
 
-            VectorType = vectorType;
-        }
-
-        public enum InfiltrationType
-        {
-            Malware,
-            Worm,
-            Vulnerability
+            InfiltrationType = vectorType;
         }
     }
 }

@@ -13,7 +13,7 @@
 
     <MachineComponent machine="@Machine.Get("localhost")" />
 
-    @foreach (Machine.ComputingPower computingPower in Enum.GetValues(typeof(Machine.ComputingPower)))
+    @foreach (ComputingPower computingPower in Enum.GetValues(typeof(ComputingPower)))
     {
         @if (Machine.MachineGroup(computingPower).Count > 0)
         {
