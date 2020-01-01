@@ -1,6 +1,7 @@
 ﻿<style>
-    .BA-carousel .btn {
-        height: 100%;
+    /* Don't want to conflict with boostrap carousel */
+    .BA-carousel .title {
+        margin-bottom: .5em;
     }
 </style>
 
@@ -8,7 +9,7 @@
     <span class="title">@Title</span>
     <br />
 
-    <span class="btn btn-info" @onclick="@previousIndex">&lt;</span>
+    <span class="purple btn btn-info" @onclick="@previousIndex">&lt;</span>
     @for (var index = 0; index < Items.Count; index++)
     {
         @if (index == currentIndex)
@@ -20,7 +21,7 @@
             <div class="box">@Items[index].Name</div>
         }
     }
-    <span class="btn btn-info" @onclick="@nextIndex">&gt;</span>
+    <span class="purple btn btn-outline-info" @onclick="@nextIndex">&gt;</span>
 </div>
 
 @code {
