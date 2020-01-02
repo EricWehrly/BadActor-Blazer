@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BadActor.GameObjects
+namespace BadActor.GameObjects.Viruses
 {
     public class ViralDistributor : GameObject<ViralDistributor>
     {
@@ -27,10 +27,10 @@ namespace BadActor.GameObjects
             return distributors;
         }
 
-        // This should really be part of virus
+        // This is part of virus now
         static ViralDistributor()
         {
-            GameLoop.RegisterLoopMethod(viralDistributorGameLoop);
+            // GameLoop.RegisterLoopMethod(viralDistributorGameLoop);
         }
 
         private static void viralDistributorGameLoop(double elapsedSeconds)

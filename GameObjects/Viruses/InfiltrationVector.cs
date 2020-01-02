@@ -1,6 +1,6 @@
 ﻿using BadActor.GameObjects.Enums;
 
-namespace BadActor.GameObjects
+namespace BadActor.GameObjects.Viruses
 {
     // Maybe malware is an infiltration vector
     // and 'Audio' is a vector .. channel ?

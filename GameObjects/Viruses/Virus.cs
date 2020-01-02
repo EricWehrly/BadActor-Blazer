@@ -1,8 +1,10 @@
-﻿using System;
+﻿using BadActor.Shared;
+using System;
+using System.Collections.Generic;
 
-namespace BadActor.GameObjects
+namespace BadActor.GameObjects.Viruses
 {
-    public class Virus : Unlockable<Virus>
+    public partial class Virus : Unlockable<Virus>
     {
         public static readonly string TypeIcon = "mdi mdi-skull-crossbones";
         public static double WriteTime(Exploit exploit, ViralVector vector)
@@ -26,6 +28,10 @@ namespace BadActor.GameObjects
         public ViralVector Vector { get; private set; }
 
         public ViralDistributor DeliveryMechanism { get; private set; }
+
+        public List<Machine> InfectedMachines = new List<Machine>();
+
+        public bool Patched { get; private set; }
 
         public Virus(string name, Exploit exploit, ViralVector vector, double unlockTime)
         {

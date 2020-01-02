@@ -1,6 +1,6 @@
 ﻿using BadActor.GameObjects.Enums;
 
-namespace BadActor.GameObjects
+namespace BadActor.GameObjects.Viruses
 {
     public class ViralVector : Unlockable<ViralVector>
     {

@@ -1,5 +1,6 @@
 ﻿using BadActor.Attributes;
 using BadActor.GameObjects.Exploits;
+using BadActor.GameObjects.Viruses;
 using System;
 
 namespace BadActor.GameObjects
@@ -7,7 +8,7 @@ namespace BadActor.GameObjects
     [AutoRegister]
     public class CreateInstances
     {
-        private readonly float COINS_PER_PROCESSING_POWER = 0.025f;
+        private readonly float COINS_PER_PROCESSING_POWER = 0.0025f;
 
         // Who knows, maybe we can take the example and load all this from json
         public CreateInstances()
