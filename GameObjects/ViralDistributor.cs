@@ -16,7 +16,7 @@ namespace BadActor.GameObjects
         {
             var distributors = new List<ViralDistributor>();
 
-            foreach (ViralDistributor distributor in ViralDistributor.List)
+            foreach (ViralDistributor distributor in List)
             {
                 if(distributor.DistributedVectors.Contains(vector))
                 {
@@ -35,26 +35,30 @@ namespace BadActor.GameObjects
 
         private static void viralDistributorGameLoop(double elapsedSeconds)
         {
-            var initialMachineProgress = MachineProgress;
             // TODO: Optimizing this will result in a significant performance boost
+            var initialMachineProgress = MachineProgress;
+            List<ViralVector> activeVectors = new List<ViralVector>();
+            
             foreach (ViralDistributor distributor in List)
             {
                 if (distributor.Unlocked)
                 {
                     foreach (ViralVector vector in distributor.DistributedVectors)
                     {
-                        // foreach virus of type vector ... ?
-                        if (vector.Unlocked)
-                        {
-                            MachineProgress += (5 * elapsedSeconds);
-                        }
+                        if (vector.Unlocked) activeVectors.Add(vector);
                     }
                 }
             }
-
-            if(MachineProgress >= MACHINE_UNLOCK_THRESHOLD)
+            foreach (Virus virus in Virus.List)
             {
-                Console.WriteLine("Adding machine.");
+                if (virus.Unlocked && activeVectors.Contains(virus.Vector))
+                {
+                    MachineProgress += (2.5 * elapsedSeconds);
+                }
+            }
+
+            if (MachineProgress >= MACHINE_UNLOCK_THRESHOLD)
+            {
                 new Machine("sucker");
                 MachineProgress -= MACHINE_UNLOCK_THRESHOLD;
             }

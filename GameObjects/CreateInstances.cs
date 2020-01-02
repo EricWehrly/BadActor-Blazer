@@ -107,9 +107,9 @@ namespace BadActor.GameObjects
         private Objective.ObjectiveCriteria malwareWritten =
             new Objective.ObjectiveCriteria("Write a virus", () =>
             {
-                foreach(ViralVector vector in ViralVector.List)
+                foreach(Virus virus in Virus.List)
                 {
-                    if (vector.Unlocked) return true;
+                    if (virus.Unlocked) return true;
                 }
 
                 return false;
