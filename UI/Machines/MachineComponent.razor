@@ -1,6 +1,10 @@
 ﻿@inherits BadActorBaseComponent;
 
 <style>
+    .machineComponent {
+        transition: all ease-in-out .5s;
+    }
+
     .machineComponent.DropTarget {
         box-shadow: 0 0 8px #9ecaed;
     }
@@ -15,7 +19,7 @@
     }
 </style>
 
-<div class="@CSSClasses @machinesClass"
+<div class="machineComponent @CSSClasses @machinesClass"
      @ondrop="@(e => HandleDrop(machine))" ondragover="event.preventDefault();">
     @foreach (Application application in machine.Applications)
     {
