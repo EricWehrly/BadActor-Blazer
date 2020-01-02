@@ -1,23 +1,18 @@
 ﻿@inherits BadActorBaseComponent;
 
-<style>
-    #MachinesContainer h4 {
-        text-decoration: dotted;
-        text-decoration-line: underline;
-    }
-</style>
-
 <div id="MachinesContainer">
 
-    <h4>machines</h4>
+    <h4 class="@Machine.TypeIcon"> machines</h4>
 
-    <MachineComponent machine="@Machine.Get("localhost")" />
+    <MachineComponent CSSClasses="horizontalListItem" machine="@Machine.Get("localhost")" />
 
     @foreach (ComputingPower computingPower in Enum.GetValues(typeof(ComputingPower)))
     {
         @if (Machine.MachineGroup(computingPower).Count > 0)
         {
-            <MachineGroup ComputingPower="computingPower" Machines="Machine.MachineGroup(computingPower)" />
+            <MachineGroup CSSClasses="horizontalListItem" 
+                          ComputingPower="computingPower" 
+                          Machines="Machine.MachineGroup(computingPower)" />
         }
     }
 </div>

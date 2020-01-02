@@ -1,16 +1,6 @@
 ﻿@inherits BadActorBaseComponent;
 
 <style>
-    .machineGroup {
-        border: 1px dashed;
-        border-color: var(--ba-border-color-light);
-        display: inline-block;
-        padding: 1.5em;
-        transition: all ease-in-out .5s;
-        margin-bottom: .25em;
-        user-select: none;
-    }
-
         .machineGroup.DropTarget {
             box-shadow: 0 0 8px #9ecaed;
         }
@@ -25,7 +15,7 @@
         }
 </style>
 
-<div class="purple machineGroup @machinesClass"
+<div class="purple machineGroup @CSSClasses @machinesClass"
      @ondrop="@(e => HandleDrop())" ondragover="event.preventDefault();">
     @foreach (Application application in Machines.FirstOrDefault().Applications)
     {

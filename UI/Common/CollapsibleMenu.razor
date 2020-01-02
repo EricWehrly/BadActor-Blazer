@@ -1,6 +1,12 @@
 ﻿<style>
-    #@containerId h4 {
-        cursor: pointer;
+    #@containerId > span {        
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .collapsible {
+        border-width: 1px;
+        border-style: solid;
     }
 
     .collapsible > div {
@@ -14,9 +20,9 @@
 </style>
 
 <div id="@containerId" class="@MenuClasses">
-    <h4 class="@HandleClasses @menuHandleDisplayIcon" @onclick="ToggleMenu">
+    <span class="btn handle @HandleClasses @MenuIcon" @onclick="ToggleMenu">
         @menuHandleDisplayName
-    </h4>
+    </span>
 
     <div class="@MenuCssClass collapsible">
         @ChildContent
@@ -24,6 +30,9 @@
 </div>
 
 @code {
+
+    // TODO: Maybe refactor to use 
+    // https://getbootstrap.com/docs/4.0/components/list-group/
 
     // I wonder if we can use clip path to animate the border coming out from the button on expand
     // https://css-tricks.com/animating-border/
@@ -62,14 +71,6 @@
         get
         {
             return Collapsed ? MenuNameShort : MenuName;
-        }
-    }
-
-    private string menuHandleDisplayIcon
-    {
-        get
-        {
-            return "btn " + (Collapsed ? MenuIcon : null);
         }
     }
 

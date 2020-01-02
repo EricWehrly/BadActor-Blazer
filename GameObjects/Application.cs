@@ -6,7 +6,7 @@ namespace BadActor.GameObjects
 {
     public class Application : GameObject<Application>
     {
-        public static string Icon = "mdi mdi-application";
+        public static readonly string TypeIcon = "mdi mdi-application";
 
         private static readonly Multiplier processingPower;
 

@@ -6,6 +6,7 @@ namespace BadActor.GameObjects
 {
     public class ViralDistributor : GameObject<ViralDistributor>
     {
+        public static readonly string TypeIcon = "mdi mdi-ray-start-arrow";
         // TODO: should this be per distributor?
         public static double MachineProgress { get; private set; }
 
@@ -26,6 +27,7 @@ namespace BadActor.GameObjects
             return distributors;
         }
 
+        // This should really be part of virus
         static ViralDistributor()
         {
             GameLoop.RegisterLoopMethod(viralDistributorGameLoop);
@@ -41,6 +43,7 @@ namespace BadActor.GameObjects
                 {
                     foreach (ViralVector vector in distributor.DistributedVectors)
                     {
+                        // foreach virus of type vector ... ?
                         if (vector.Unlocked)
                         {
                             MachineProgress += (5 * elapsedSeconds);

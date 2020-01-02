@@ -1,7 +1,6 @@
 :root {
     --ba-font-color: white;
     --ba-border-color-light: rgb(51, 51, 51);
-
     --purple-foreground: rgb(150, 20, 180);
 }
 
@@ -9,16 +8,20 @@ body {
     background-color: #222;
     color: var(--ba-font-color);
     border-color: var(--ba-border-color-light);
-
     text-shadow: 0 0 5px #C8C8C8;
-
     font: 1rem Inconsolata monospace;
     font-family: 'Lucida Console';
+    user-select: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
     color: #777;
     text-shadow: 0 0 2px #555;
+}
+
+h4 {
+    text-decoration: dotted;
+    text-decoration-line: underline;
 }
 
 button {
@@ -103,10 +106,19 @@ button {
     cursor: grab;
 }
 
-*[draggable=true]:active {
-    cursor: grabbing;
-}
+    *[draggable=true]:active {
+        cursor: grabbing;
+    }
 
 .opacity-half {
     opacity: 0.5;
+}
+
+.horizontalListItem {
+    display: inline-block;
+    margin-right: .25em;
+    text-align: center;
+    padding: 1em;
+    border: 1px dashed;
+    border-color: var(--ba-border-color-light);
 }

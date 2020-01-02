@@ -9,13 +9,13 @@
         {
             <div class="application" draggable="true"
                  @ondragstart="@(e => ApplicationDragStart(application))" @ondragend="@ApplicationDragEnd">
-                <span class="@Application.Icon"> @application.Name</span>
+                <span class="@Application.TypeIcon"> @application.Name</span>
             </div>
         }
         else
         {
             <div class="application">
-                <span class="@Application.Icon"> @application.Name</span>
+                <span class="@Application.TypeIcon"> @application.Name</span>
                 <span class="btn btn-success" @onclick="@(e => buyApplication(application))">
                     <span class="@coins.Icon"> @application.Cost</span>
                 </span>

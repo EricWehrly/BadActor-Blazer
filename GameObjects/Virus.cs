@@ -4,7 +4,7 @@ namespace BadActor.GameObjects
 {
     public class Virus : Unlockable<Virus>
     {
-        public static string Icon = "mdi mdi-skull-crossbones";
+        public static readonly string TypeIcon = "mdi mdi-skull-crossbones";
         public static double WriteTime(Exploit exploit, ViralVector vector)
         {
             // TODO: More complicated virus = longer scribe time

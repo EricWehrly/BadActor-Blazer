@@ -68,8 +68,9 @@ namespace BadActor.GameObjects
 
         private void createExploits()
         {
-            var fakeOsExploit = new Exploitable("FakeOS");
-            // other OS's
+            var fakeOsExploit = new Exploitable("CommonOS");
+            // ServerOS
+            // PhoneOS
             // Applications (like webservers ...)
 
             new Exploit(fakeOsExploit);
@@ -104,7 +105,7 @@ namespace BadActor.GameObjects
             });
 
         private Objective.ObjectiveCriteria malwareWritten =
-            new Objective.ObjectiveCriteria("Write a piece of malware", () =>
+            new Objective.ObjectiveCriteria("Write a virus", () =>
             {
                 foreach(ViralVector vector in ViralVector.List)
                 {

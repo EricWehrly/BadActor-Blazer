@@ -7,7 +7,7 @@ namespace BadActor.GameObjects
 {
     public class Machine : GameObject<Machine>
     {
-        public static string Icon = "mdi mdi-desktop-classic";
+        public static readonly string TypeIcon = "mdi mdi-desktop-classic";
 
         public static List<Machine> MachineGroup(ComputingPower computingPower, bool excludeLocalhost = true)
         {
