@@ -37,12 +37,14 @@ namespace BadActor.GameObjects
                 // Console.WriteLine(application.name + " thinking on " + application.Machines.Count + " machines.");
             });
 
+            /*
             new Application("Music Sharer", null, 0, (application, elapsedSeconds) =>
             {
                 // functions as a music distributor ...
             });
+            */
 
-            new Application("Zamundan Prince", null, 3000);
+            // new Application("Zamundan Prince", null, 3000);
 
             // new Application("Exploit Finder");
 
@@ -62,9 +64,15 @@ namespace BadActor.GameObjects
             var gameVector = new ViralVector("Game", 300, "mdi mdi-gamepad-variant-outline");
             var antiVirusVector = new ViralVector("Anti-Virus", 600, "mdi mdi-application");
 
+            new ViralDistributorType("XXX Website", new[] { movieVector }, 80);
+            new ViralDistributorType("Pirate Website", 
+                new[] { musicVector, movieVector, gameVector, antiVirusVector }, 100);
+
+            /*
             new ViralDistributor("XXX Website", 100, new[] { "mdi-web" }, new[] { movieVector });
             new ViralDistributor("Pirate Website", 80, new[] { "mdi-pirate" },
                 new[] { musicVector, movieVector, gameVector, antiVirusVector });
+                */
         }
 
         private void createExploits()
@@ -119,12 +127,7 @@ namespace BadActor.GameObjects
         private Objective.ObjectiveCriteria distributorUnlocked =
             new Objective.ObjectiveCriteria("Host a malware distributor", () =>
             {
-                foreach(ViralDistributor distributor in ViralDistributor.List)
-                {
-                    if (distributor.Unlocked) return true;
-                }
-
-                return false;
+                return ViralDistributor.List.Count > 0;
             });
 
         private Objective.ObjectiveCriteria getTenWorkers =
