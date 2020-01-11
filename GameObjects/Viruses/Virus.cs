@@ -27,8 +27,6 @@ namespace BadActor.GameObjects.Viruses
 
         public ViralVector Vector { get; private set; }
 
-        public ViralDistributor DeliveryMechanism { get; private set; }
-
         public List<Machine> InfectedMachines = new List<Machine>();
 
         public bool Patched { get; private set; }

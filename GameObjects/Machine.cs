@@ -17,6 +17,8 @@ namespace BadActor.GameObjects
             return machines.ToList();
         }
 
+        public static event Action<Machine, Application> OnApplicationRun;
+
         public ComputingPower ComputingPower { get; private set; } = ComputingPower.Granny;
         public AccessLevel AccessLevel { get; private set; } = AccessLevel.guest;
         public List<Application> Applications { get; } = new List<Application>();
@@ -30,6 +32,8 @@ namespace BadActor.GameObjects
 
             // TODO: can we somehow animate machine draw in?
             if(appState != null) appState.SignalRedraw(GetType());
+
+            // TODO: if machine group is already running apps, run those apps
         }
 
         public void RunApplication(Application application)
@@ -38,6 +42,8 @@ namespace BadActor.GameObjects
             {
                 Applications.Add(application);
             }
+
+            OnApplicationRun?.Invoke(this, application);
 
             appState.GameStateChanged();
         }

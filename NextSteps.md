@@ -1,7 +1,5 @@
 ﻿virus complexity (dictates write time, patch time)
 
-virus patching needs to be rendered visually
-
 working against player to shut down distributor sites
 
 music sharer app (acts as a viral distributor, but can be boosted by player running on workers)
@@ -11,7 +9,14 @@ Icons in viral distributor need to light up according to distributed viruses.
 Starting an app into a group only starts it on all machines currently in the group
 	Newly added machines won’t be running it
 
+Virus compounding (ability to distribute new viruses to machines you've already infected)
+
+Details pane
+
 --------------------- Then ---------------------
+
+Objective progress tracking
+	(instead of showing '10 workers' with checkbox, show '3 / 10 workers', etc.)
 
 Objectives:
 	Grow to 100 nodes
@@ -19,6 +24,29 @@ Objectives:
 	Grow to 100,000 nodes
 	DDoS Ashley Madison
 	DDoS candidate campaign site
+
+--------------------- Then ---------------------
+
+Research
+
+Research for obfuscation (levels):
+	Makes your running applications harder to detect,
+	Can now hack machines with a higher security level
+
+Some kind of research for getting past stronger security?
+
+Research unlocks new 
+OS and app specific exploit finder apps 
+
+--------------------- Then ---------------------
+
+Exploits and mechanisms each have their own properties for how discoverable they are, etc 
+
+You can spend time looking for new exploits, or researching into delivery mechanisms (some can be unlocked, some can be advanced) 
+
+You can set slave machines to researching exploits 
+
+Maybe exploits are found by running the app (Webserver, for instance) and the exploit finder app, which will scan all running apps ...
 
 --------------------- Then ---------------------
 
@@ -40,15 +68,7 @@ Has three properties: Seller, Price, and user quality
 
 --------------------- Then ---------------------
 
-Research
-
-Research for obfuscation (levels):
-	Makes your running applications harder to detect,
-	Can now hack machines with a higher security level
-
-Some kind of research for getting past stronger security?
-
---------------------- Then ---------------------
+Items being removed from lists (Viruses, machines, etc.) should fade out instead of just disappear immediately
 
 Should vulnerability be tied to access level?
 	If we’re doing it like Plague Inc, 

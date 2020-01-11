@@ -3,8 +3,10 @@ using BadActor.Shared;
 
 namespace BadActor.GameObjects
 {
-    public class Unlockable<T> : GameObject<T> where T : GameObjectBase
+    public abstract class Unlockable<T> : GameObject<T> where T : GameObjectBase
     {
+        public static event Action<Unlockable<T>> OnUnlock;
+
         public bool Unlocked { get; protected set; }
         public double UnlockTime
         {
@@ -52,6 +54,10 @@ namespace BadActor.GameObjects
             appState.GameStateChanged();
 
             appState.SignalRedraw(GetType());
+
+            onUnlock();
         }
+
+        protected virtual void onUnlock() { }
     }
 }

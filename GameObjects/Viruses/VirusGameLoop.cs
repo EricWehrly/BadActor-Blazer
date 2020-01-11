@@ -17,27 +17,49 @@ namespace BadActor.GameObjects.Viruses
         {
             infectNextMachine();
 
-            initiatePatch();
+            Machine.OnApplicationRun += listenForInfectedMachineApplicationRun;
         }
 
         private void infectNextMachine()
         {
-            // Unlockable<ViralDistributor>.OnUnlock += onUnlock;
+            int timeUntilNextInfection = (int)(
+                MAX_MILLISECONDS_TO_INFECT
+                / Vector.DistributionChannels.Count
+                * random.NextDouble());
 
-            int timeUntilNextInfection = (int)(MAX_MILLISECONDS_TO_INFECT * random.NextDouble());
+            // for testing
+            if(InfectedMachines.Count == 0)
+            {
+                timeUntilNextInfection = 5;
+            }
 
             Task.Delay(timeUntilNextInfection, infectionCancellation.Token).ContinueWith(t =>
             {
-                InfectedMachines.Add(new Machine("infected"));
+                if (!infectionCancellation.IsCancellationRequested)
+                {
+                    InfectedMachines.Add(new Machine("infected"));
 
-                infectNextMachine();
+                    infectNextMachine();
+                }
             });
+        }
+
+        private void listenForInfectedMachineApplicationRun(Machine machine, Application application)
+        {
+            if(InfectedMachines.Contains(machine))
+            {
+                initiatePatch();
+
+                Machine.OnApplicationRun -= listenForInfectedMachineApplicationRun;
+            }
         }
 
         private void initiatePatch()
         {
             int timeUntilPatched = (int)(WriteTime(Exploit, Vector) * 1000
                 * PATCH_TIME_MULTIPLIER * random.NextDouble());
+            
+            timeUntilPatched = 1000;    // for testing
 
             Console.WriteLine(Name + " patch time: " + timeUntilPatched);
             Task.Delay(timeUntilPatched).ContinueWith(t =>
@@ -49,29 +71,45 @@ namespace BadActor.GameObjects.Viruses
                 initiatePatchDistribution();
 
                 infectionCancellation.Cancel();
+
+                appState.SignalRedraw(typeof(Virus));
             });
         }
 
-        // TODO: pick off computers one by one, base time off of computing power (more == sooner)
         private void initiatePatchDistribution()
         {
-            for(var index = InfectedMachines.Count; index > 0; index--)
+            Console.WriteLine("Patching " + InfectedMachines.Count + " machines.");
+
+            for(var index = InfectedMachines.Count - 1; index >= 0; index--)
             {
                 var machine = InfectedMachines[index];
 
-                int timeUntilPatched = (int)((AVERAGE_PATCH_DISTRIBUTION_TIME
-                    / (int)machine.ComputingPower)
-                    * random.NextDouble());
+                int timeUntilPatched = (int)AVERAGE_PATCH_DISTRIBUTION_TIME;
+                timeUntilPatched = timeUntilPatched / (((int)machine.ComputingPower) / 100);
+                timeUntilPatched = (int)(timeUntilPatched * random.NextDouble());
+
+                Console.WriteLine("Time until machine " + index + " patched: " + timeUntilPatched);
 
                 Task.Delay(timeUntilPatched).ContinueWith(t =>
                 {
                     Console.WriteLine(machine.Name + " getting patch for virus " + Name);
                     // TODO: We shouldn't be able to remove items from this list from this class ...
+                    // TODO: Once a machine can have multiple viruses, we can't just remove it from 'machines'
                     Machine.List.Remove(machine);
-                    machine = null;
-                });
+                    InfectedMachines.Remove(machine);
 
-                // TODO: on the last one, delete the virus ...
+                    machine = null;
+
+                    // TODO: recompute application processing power
+
+                    if (InfectedMachines.Count == 0)
+                    {
+                        List.Remove(this);
+                    }
+
+                    appState.SignalRedraw(typeof(Virus));
+                    appState.SignalRedraw(typeof(Machine));
+                });
             }
         }
     }

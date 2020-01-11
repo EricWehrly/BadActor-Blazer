@@ -1,9 +1,25 @@
 ﻿using BadActor.GameObjects.Enums;
+using System.Collections.Generic;
 
 namespace BadActor.GameObjects.Viruses
 {
     public class ViralVector : Unlockable<ViralVector>
     {
+        public List<ViralDistributorType> DistributionChannels { get
+            {
+                List<ViralDistributorType> distributionChannels = new List<ViralDistributorType>();
+
+                foreach (var distributorType in ViralDistributorType.List)
+                {
+                    if(distributorType.DistributedVectors.Contains(this))
+                    {
+                        distributionChannels.Add(distributorType);
+                    }
+                }
+
+                return distributionChannels;
+            } }
+
         public string DisplayName
         {
             get

@@ -93,12 +93,14 @@ namespace BadActor.GameObjects
             });
 
             var writeVirus = new Objective("Spread some love", new Objective.ObjectiveCriteria[] {
-                malwareWritten, distributorUnlocked
+                malwareWritten, getTenWorkers //, distributorUnlocked
             }, new[] { getMoney });
 
+            /*
             new Objective("Get some workers", new Objective.ObjectiveCriteria[] {
                 getTenWorkers
             }, new[] { writeVirus });
+            */
         }
 
         private Objective.ObjectiveCriteria coinMinerPurchased =
