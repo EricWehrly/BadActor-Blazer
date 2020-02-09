@@ -1,4 +1,6 @@
-﻿virus complexity (dictates write time, patch time)
+﻿Player objective to define infected machine groups (for grouping...)
+ 
+ virus complexity (dictates write time, patch time)
 
 working against player to shut down distributor sites
 
