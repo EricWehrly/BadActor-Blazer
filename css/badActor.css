@@ -1,0 +1,124 @@
+:root {
+    --ba-font-color: white;
+    --ba-border-color-light: rgb(51, 51, 51);
+    --purple-foreground: rgb(150, 20, 180);
+}
+
+body {
+    background-color: #222;
+    color: var(--ba-font-color);
+    border-color: var(--ba-border-color-light);
+    text-shadow: 0 0 5px #C8C8C8;
+    font: 1rem Inconsolata monospace;
+    font-family: 'Lucida Console';
+    user-select: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #777;
+    text-shadow: 0 0 2px #555;
+}
+
+h4 {
+    text-decoration: dotted;
+    text-decoration-line: underline;
+}
+
+button {
+    background-color: #222;
+    color: var(--ba-font-color);
+    border-color: var(--ba-border-color-light);
+}
+
+.btn {
+    cursor: pointer;
+    padding: .2rem .35rem
+}
+
+.mdi-stack {
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.mdi.locked {
+    opacity: 0.5;
+}
+
+.main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+}
+
+.content {
+    z-index: 2;
+}
+
+.collapsible {
+    overflow: hidden;
+    transition: max-height 1s ease-in-out;
+    height: auto;
+    max-height: 600px;
+}
+
+    .collapsible.collapsed {
+        max-height: 0;
+    }
+
+.green {
+    color: rgb(25, 245, 25);
+    text-shadow: 0 0 2px rgba(200, 245, 200, .8);
+}
+
+    .green.btn, .green .btn {
+        color: white;
+        background-color: rgb(25, 245, 25);
+        border-color: rgb(25, 245, 25);
+    }
+
+.purple {
+    color: var(--purple-foreground);
+    text-shadow: 0 0 2px rgba(200, 27, 240, .8);
+    border-color: var(--purple-foreground);
+}
+
+    .purple.btn, .purple .btn {
+        color: white;
+        background-color: var(--purple-foreground);
+    }
+
+.blue {
+    color: rgb(25, 25, 245);
+    text-shadow: 0 0 2px rgba(160, 160, 245, .8);
+}
+
+    .blue.btn, .blue .btn {
+        color: white;
+        background-color: rgb(25, 25, 245);
+        border-color: rgb(25, 25, 245);
+    }
+
+*[draggable=true] {
+    cursor: grab;
+}
+
+    *[draggable=true]:active {
+        cursor: grabbing;
+    }
+
+.opacity-half {
+    opacity: 0.5;
+}
+
+.horizontalListItem {
+    display: inline-block;
+    margin-right: .25em;
+    text-align: center;
+    padding: 1em;
+    border: 1px dashed;
+    border-color: var(--ba-border-color-light);
+}
